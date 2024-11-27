@@ -1,0 +1,50 @@
+:: StoryData
+{
+    "ifid": "7290E98B-F8EB-4C77-AD28-9E538F0048AF",
+    "format": "SugarCube",
+    "format-version": "2.37.3"
+}
+
+:: StoryTitle
+Inventory 示例
+
+:: StoryInit
+<<wood '诅咒木'>>
+<<run Popup.info('诅咒木', '不可丢弃，不可拆分，不可使用。')>>
+<<permanent>>
+<<unstackable>>
+<<description>>
+不可丢弃，不可拆分，不可使用。
+<</wood>>
+
+<<weapon '木剑'>>
+<<durability 100>>
+<<description>>
+木剑，木制的剑，非常脆弱。
+<</weapon>>
+
+<<newinv $inv1 20>>
+<<newinv $inv2 10>>
+<<store $inv1 '诅咒木' 2>>
+<<store $inv1 '石头' 50>>
+<<store $inv1 '铁矿石' 20>>
+<<store $inv1 '铜矿石' 20>>
+<<store $inv1 '煤炭' 30>>
+<<store $inv1 '木剑' 1>>
+
+:: StoryMenu
+<<link 背包>>
+    <<run Dialog.create('背包').wiki('<<inv $inv1>>').open()>>
+<</link>>
+
+<<link 空间戒指>>
+    <<run Dialog.create('空间戒指').wiki('<<inv $inv2>>').open()>>
+<</link>>
+
+:: Start
+
+<<inv $inv1>>
+/* 将$inv1的第4格物品，转移到$inv2的第1格 */
+/* <<transfer $inv1 $inv2 4 1>> */
+[[操作页面]]
+[[背包页面]]
