@@ -4,6 +4,6 @@
 > [!TIP]
 > 基于 ChapelR 的 [Simple Inventory](https://github.com/ChapelR/simple-inventory/) 修改
 > 
-> 打包文件在 [dist](../dist) 中下载
+> 打包文件在 [dist/assets](../dist/assets) 中下载
 
 ![Slot Inventory](imgs/image.png)
