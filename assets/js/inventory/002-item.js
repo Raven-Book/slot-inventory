@@ -2,6 +2,7 @@
     'use strict';
     debugger;
     const defaultOpts = {
+        url: '',
         description : '',      // 检查物品时在模态框中显示的描述文本
         handler : null,        // 回调函数或wiki代码
         displayName : '',      // 显示名称(用于替换ID)

@@ -3,12 +3,22 @@
         return varName && typeof varName === 'string' && varName.length >= 2 && (varName[0] === '$' || varName[0] === '_');
     }
 
-    function extractVarName(rawArgs) {
-        return rawArgs.trim()
-            .split(' ')
-            .first()
-            .replace(/["']/g, '')
-            .trim();
+    function extractVarName(args, idx) {
+        return args.trim()
+        .split(' ')[idx]
+        .replace(/['"]/g, '')
+        .trim();
+    }
+
+
+    function getInv(args, idx) {
+        return State.getVar(extractVarName(args, idx));
+    }
+
+    function checkInv(inv) {
+        if (!(inv instanceof Inventory)) {
+            throw new Error('The argument must be a inventory object!');
+        }
     }
 
 
@@ -23,7 +33,7 @@
     
     Macro.add('newinv', {
         handler() {
-            const varName = extractVarName(this.args.raw);
+            const varName = extractVarName(this.args.raw, 0);
             if (!isValidVariable(varName)) {
                 return this.error('argument must be a story or temporary variable!');
             }
@@ -75,7 +85,7 @@
                     Popup.error('转移失败', '无效的格子索引');
                     break;
                 case Code.SLOT_FULL:
-                    Popup.warn('转移失败', '目标格子已满');
+                    Popup.info('转移失败', '目标格子已满');
                     break;
                 default:
                     Popup.error('转移失败', result.message);
@@ -115,40 +125,30 @@
                 }
                 return;
             }
-
-            for (let i = 0; i < num; i++) {
-                let result = inv.store(this.args[1], this.args[3]);
-                if(!result.success && (result.code === Code.SLOT_FULL || result.code === Code.SLOT_OCCUPIED)) {
-                    const handler = Inventory.handlers[':inventory_full'];
-                    if (!handler) {
-                        Popup.warn('背包已满', `${result.item}(x${num - i})被丢弃`);
-                    } else {
-                        handler(result.item, num - i);
-                    }
-                    break;
-                }
-            }
+            inv.store(this.args[1], this.args[2], this.args[3], this.args[4]);
         }
     });
 
-    Macro.add('inv', {
+    Macro.add(['inv', 'take', 'give'], {
         handler() {
             if (this.args.length < 1) {
                 return this.error('A inventory variable must be specified!');
             }
-            const varName = extractVarName(this.args.raw);
-            const inv = State.getVar(varName);
-            if (!(inv instanceof Inventory)) {
-                return this.error('The argument must be a inventory object!');
+            const raw = this.args.raw;
+            const inv1 = getInv(raw, 0);
+            checkInv(inv1);
+            if(this.name === 'inv') {
+                inv1.render(this.output);
+            } else {
+                const inv2 = getInv(raw, 1);
+                inv1.render(this.output, inv2, this.name); 
             }
-
-            inv.render(this.output);
         }   
     });
 
 
     Macro.add(AllCategories, {
-        tags: ['description', 'tags', 'durability', 'unstackable', 'permanent', 'unique'],
+        tags: ['description', 'tags', 'durability', 'unstackable', 'permanent', 'unique', 'url'],
         handler() {
             if (this.args.length < 1) {
                 return this.error('Not enough arguments provided. At least one argument is required');
@@ -157,7 +157,7 @@
             const id = this.args[0];
             const name = this.args[1] ?? id;
 
-            let tags, durability, description = '', handler = null, unstackable = false, permanent = false, unique = false;
+            let tags, durability, url = '', description = '', handler = null, unstackable = false, permanent = false, unique = false;
 
             handler = this.payload[0].contents.trim();
 
@@ -182,6 +182,9 @@
                         case 'unique':
                             unique = true;
                             break;
+                        case 'url':
+                            url = pl.args.raw;
+                            break;
                     }
                 }
             }
@@ -197,6 +200,7 @@
                 unique,
                 cat,
                 sub,
+                url
             }, tags);
         }
     });

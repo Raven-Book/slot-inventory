@@ -17,10 +17,20 @@
             .attr('data-slot', idx + 1)
             .attr('data-id', slot.id);
         
-        $('<div>')
+        if (item && item.url.trim() !== '') {
+            $slot.addClass('slot-img')
+                .append(
+                    $('<img>')
+                        .attr('src', item.url)
+                )
+        } else {
+            $('<div>')
             .addClass('item-name')
             .text(itemName)
             .appendTo($slot);
+        }
+
+       
         
         if (slot.durability) {
             const $durabilityContainer = $('<div>')
@@ -356,7 +366,7 @@
         const toSlot = parseInt($(this).data('slot'));
         
         if (fromSlot !== toSlot) {
-            inv.transfer(inv, fromSlot - 1, toSlot - 1);
+            inv.move(fromSlot - 1, toSlot - 1);
             inv.render($(this).closest('.inventory-container').parent()[0]);
         }
     }
@@ -373,9 +383,91 @@
         }
     }
 
-    Inventory.prototype.render = function (output) {
-        const inv = this;
+
+    function transferView(output, inv1, inv2, type, swapped = false) {
+        if (type === 'take' && !swapped) {
+            const tmp = inv1;
+            swapped = true;
+            inv1 = inv2;
+            inv2 = tmp;
+        }
+
+        const $container = $('<div>').addClass('inventory-transfer-container');
+        const $table = $('<ul>').addClass('transfer-table');
+
+        inv1.iterate((idx, slot, _) => {
+            if (!slot) return;
+
+
+            let $item;
+            const item = Item.get(slot.id);
+            if (typeof item?.inspect === 'function') {
+                $item = $('<a>')
+                            .addClass('item-link')
+                            .text(item?.displayName || slot.id)
+                            .on('click', () => Item.get(slot.id)?.inspect());
+            } else {
+                $item = $('<span>')
+                    .addClass('transfer-name')
+                    .text(item?.displayName || slot.id)
+            }
+
+            const $row = $('<li>')
+                .addClass('slot-inventory-listing')
+                .attr('data-slot', idx + 1)
+                .append($item)      
+                .append($('<span>').html(`&nbsp;×&nbsp;${slot.count}&nbsp;`))
+                .append($('<span>').addClass('spacer'))
+                .append($('<a>')
+                    .addClass('item-action-link')
+                    .text(type === 'give' ? '给予':'取走')
+                    .on('click', function() {
+                        debugger
+                        const slot = parseInt($(this).closest('li').data('slot'));
+                        const result = inv1.transfer(inv2, slot - 1);
+                        if (!result.success) {
+                            Popup.info(`${type === 'give'? '给予':'获取'}失败`, result.message);
+                        }
+                        inv1.render($(".inventory-transfer-container").parent()[0], inv2, type, swapped);
+                    })
+                )
+                .append($('<span>').addClass('spacer'));
         
+            $table.append($row);
+        });
+
+        const $takeAllRow = $('<li>')
+            .addClass('all-listing slot-inventory-listing');
+        for (let i = 0; i < 3; i++) {
+            $takeAllRow.append($('<span>').addClass('spacer'));
+        }
+            $takeAllRow
+                .append($('<a>')
+                    .addClass('item-action-link')
+                    .text(`${type === 'give' ? '给予':'取走'}全部`)
+                    .on('click', function() {
+                        let failed = false;
+                        inv1.iterate((idx, slot) => {
+                            if (slot && !failed) {  // 如果之前没有失败，则继续操作
+                                const result = inv1.transfer(inv2, idx);
+                                if (!result.success) {
+                                    Popup.info(`$${type === 'give'? '给予':'获取'}失败`, result.message);
+                                    failed = true;
+                                    return false;
+                                }
+                            }
+                        });
+                        debugger;
+                        inv1.render($(".inventory-transfer-container").parent()[0], inv2, type, swapped);
+                    }))
+                .append($('<span>').addClass('spacer'));
+
+        $table.append($takeAllRow);
+        $container.append($table);
+        $(output).empty().append($container);
+    }
+
+    function defaultView(output, inv) {
         const $existingContainer = $('.inventory-container');
         
         let searchText = $existingContainer.find('.inv-search').val() || '';
@@ -527,5 +619,16 @@
         }
         
         $(output).empty().append($container);
+    }
+    
+
+    Inventory.prototype.render = function (output, inv2 = null, type = 'give', swapped = false) {
+        const inv1 = this;
+        
+        if (inv2) {
+            transferView(output, inv1, inv2, type, swapped);
+        } else {
+            defaultView(output, inv1);
+        }
     }
 })(); 

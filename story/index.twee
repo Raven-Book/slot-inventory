@@ -19,18 +19,19 @@ Inventory 示例
 
 <<weapon '木剑'>>
 <<durability 100>>
+<<url imgs/images.png>>
 <<description>>
 木剑，木制的剑，非常脆弱。
 <</weapon>>
 
 <<newinv $inv1 20>>
 <<newinv $inv2 10>>
-<<store $inv1 '诅咒木' 2>>
+/* <<store $inv1 '诅咒木' 1>>
 <<store $inv1 '石头' 50>>
 <<store $inv1 '铁矿石' 20>>
-<<store $inv1 '铜矿石' 20>>
-<<store $inv1 '煤炭' 30>>
-<<store $inv1 '木剑' 1>>
+<<store $inv1 '铜矿石' 20>> */
+<<store $inv1 '煤炭' 1000>> 
+<<store $inv2 '木剑' 1 null 10>>
 
 :: StoryMenu
 <<link 背包>>
@@ -42,9 +43,10 @@ Inventory 示例
 <</link>>
 
 :: Start
-
-<<inv $inv1>>
 /* 将$inv1的第4格物品，转移到$inv2的第1格 */
-/* <<transfer $inv1 $inv2 4 1>> */
+<<transfer $inv1 $inv2 4>>
 [[操作页面]]
 [[背包页面]]
+
+:: 操作页面
+<<take $inv2 $inv1>>

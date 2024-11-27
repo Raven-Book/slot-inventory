@@ -26,6 +26,8 @@
             INVALID_NUMBER: 206,
             /// 背包已满
             INVENTORY_FULL: 207,
+            // 无效的物品数量
+            INVALID_ITEM_COUNT: 208, 
             /// 无效的参数
             INVALID_ARGS: 250,
             /// 未知错误
@@ -43,6 +45,7 @@
             [Inventory.StatusCode.PERMANENT_ITEM]: '该物品无法丢弃',
             [Inventory.StatusCode.INVALID_NUMBER]: '无效的数字',
             [Inventory.StatusCode.INVENTORY_FULL]: '背包已满',
+            [Inventory.StatusCode.INVALID_ITEM_COUNT]: '无效的物品数量',
             [Inventory.StatusCode.INVALID_ARGS]: '无效的参数',
             [Inventory.StatusCode.UNKNOWN_ERROR]: '未知错误',
             [Inventory.StatusCode.CANCELLED]: '操作被取消',
@@ -141,84 +144,115 @@
         }
 
         /**
+         * 添加物品到指定格子
+         * @param {string} id - 物品ID
+         * @param {number} count - 要添加的数量
+         * @param {number} idx - 格子索引
+         * @param {number|null} durability - 物品耐久度
+         * @returns {number} 剩余未存储的数量
+         */
+        #addToSlot(id, count, idx, durability) {
+            const slot = this.slots[idx];
+            const item = Item.get(id);
+
+            if (!slot) {
+                const insertCount = Math.min(count, this.maxStack);
+                this.slots[idx] = {
+                    id: id,
+                    count: insertCount,
+                    durability: item?.durability > 0
+                        ? (durability == null ? item.durability : durability)
+                        : null
+                };
+
+                if (!this.items[id]) {
+                    this.items[id] = {idx: [idx], num: [insertCount]}
+                } else {
+                    const info = this.items[id];
+                    info.idx.push(idx);
+                    info.num.push(insertCount);
+                }
+
+                return count - insertCount;
+            } else if (slot.id === id && (item?.stackable || !item)) {
+                const available = this.maxStack - slot.count;
+                const insertCount = Math.min(count, available);
+                slot.count += insertCount;
+
+                const info = this.items[id];
+                const slotIdxPos = info.idx.indexOf(idx);
+                info.num[slotIdxPos] += insertCount;
+                
+                return count - insertCount;
+            }
+
+            return count;
+        }
+
+        /**
          * 储存物品到背包
          * @param {string} id - 物品ID
-         * @param {number|null} idx - 指定储存的格子索引,为null时自动寻找合适位置
+         * @param {number} count - 要储存的数量，默认为1
+         * @param {number|null} idx - 指定储存的格子索引，为null时自动寻找合适位置
+         * @param {number|null} durability - 物品耐久度，为null时使用默认值
          */
-        store(id, idx = null) {
-            const item = Item.get(id);
+        store(id, count = 1, idx = null, durability = null, popup = true) {
+            debugger;
             const itemInfo = this.items[id];
 
+            if (count <= 0) {
+                return this.#buildMsg(idx, id, Inventory.StatusCode.INVALID_ITEM_COUNT);
+            }
 
             if (idx !== null) {
-
-                if (idx >= this.maxSlots) {
+                if (idx >= this.maxSlots || (this.slots[idx] && this.slots[idx].id !== id)) {
                     return this.#buildMsg(idx, id, Inventory.StatusCode.INVALID_SLOT);
                 }
-
-                if (this.slots[idx] && this.slots[idx].id !== id) {
-                    return this.#buildMsg(idx, id, Inventory.StatusCode.SLOT_OCCUPIED);
-                }
-
-                if (!this.slots[idx]) {
-                    this.slots[idx] = {
-                        id: id,
-                        count: 1,
-                        durability: item?.durability > 0 ? item.durability : null
-                    };
-
-                    if (!itemInfo) {
-                        this.items[id] = {
-                            idx: [idx],
-                            num: [1],
-                        };
-                    } else {
-                        itemInfo.idx.push(idx);
-                        itemInfo.num.push(1);
-                    }
+                const remainingCount = this.#addToSlot(id, count, idx, durability);
+                
+                if (remainingCount === 0) {
                     return this.#buildMsg(idx, id, Inventory.StatusCode.SUCCESS);
-                }
+                } 
 
-                if (this.slots[idx].id === id && (item?.stackable || !item)) {
-                    if (this.slots[idx].count < this.maxStack) { 
-                        this.slots[idx].count++;
-                        const slotIdx = itemInfo.idx.indexOf(idx);
-                        itemInfo.num[slotIdx]++;
+                count = remainingCount;
+            }
+
+            if (itemInfo) {
+                for (let i = 0; i < itemInfo.idx.length; i++) {
+                    const slotIdx = itemInfo.idx[i];
+                    const remainingCount = this.#addToSlot(id, count, slotIdx, durability); 
+                    
+                    if (remainingCount === 0) {
                         return this.#buildMsg(idx, id, Inventory.StatusCode.SUCCESS);
-                    } else if (itemInfo){
-                        const slotIdx = itemInfo.num.findIndex(num => num < this.maxStack);
-                        if (slotIdx !== -1) {
-                            this.slots[itemInfo.idx[slotIdx]].count++;
-                            itemInfo.num[slotIdx]++;
-                            return this.#buildMsg(itemInfo.idx[slotIdx], id, Inventory.StatusCode.SUCCESS);
-                        } else if(this.emptySlot !== -1) {
-                            this.slots[this.emptySlot] = {
-                                id: id,
-                                count: 1,
-                                durability: item?.durability > 0 ? item.durability : null
-                            };
-                            itemInfo.idx.push(this.emptySlot);
-                            itemInfo.num.push(1);
-                            return this.#buildMsg(this.emptySlot, id, Inventory.StatusCode.SUCCESS);
-                        }
-                    }
-                }
-            } else {
-                if (itemInfo && (item?.stackable || !item)) {
-                    const slotIdx = itemInfo.num.findIndex(num => num < this.maxStack);
-                    if (slotIdx !== -1) {
-                        this.slots[itemInfo.idx[slotIdx]].count++;
-                        itemInfo.num[slotIdx]++;
-                        return this.#buildMsg(itemInfo.idx[slotIdx], id, Inventory.StatusCode.SUCCESS);
-                    } 
-                }
-                const emptySlot = this.emptySlot;
-                if (emptySlot >= 0) {
-                    return this.store(id, emptySlot);
+                    }   
+
+                    count = remainingCount;
                 }
             }
 
-            return this.#buildMsg(null, id, Inventory.StatusCode.SLOT_FULL);
+            while(count > 0) {
+                const emptySlot = this.emptySlot;
+                if (emptySlot === -1) {
+                    const handler = Inventory.handlers[':inventory_full'];
+                    if (State.length <= 0 || popup) {
+                        Popup.warn('背包已满', `${id}(x${count})被丢弃`);
+                    }
+                    if (handler) {
+                        handler(id, count);
+                    }
+                    const result = this.#buildMsg(null, id, Inventory.StatusCode.SLOT_FULL);
+                    result.drop = count;
+                    return result;
+                }
+
+                const remainingCount = this.#addToSlot(id, count, emptySlot, durability);
+
+                if (remainingCount === 0) {
+                    return this.#buildMsg(emptySlot, id, Inventory.StatusCode.SUCCESS);
+                }
+                count = remainingCount;
+            }
+            return this.#buildMsg(emptySlot, id, Inventory.StatusCode.SUCCESS);
         }
 
         /**
@@ -230,8 +264,9 @@
                 return;
             }
 
-            for (const slot of this.slots) {
-                callback(slot, this.items[slot.id]);
+            for (let i = 0; i < this.slots.length; i++) {
+                const slot = this.slots[i];
+                callback(i, slot, slot ? this.items[slot.id] : null);
             }
         }
 
@@ -284,121 +319,25 @@
          * @param {number} toIdx - 目标格子索引
          * @returns {object} 转移结果
          */
-        transfer(toInv, fromIdx, toIdx) {
+        transfer(toInv, fromIdx, toIdx = null) {
+            debugger;
             if (fromIdx >= this.maxSlots || toIdx >= toInv.maxSlots) {
                 return this.#buildMsg(null, null, Inventory.StatusCode.INVALID_SLOT);
             }
 
             const fromSlot = this.slots[fromIdx];
-            if (!fromSlot || toIdx == null) {
+            if (!fromSlot) {
                 return this.#buildMsg(fromIdx, null, Inventory.StatusCode.INVALID_SLOT);
             }
 
-            const toSlot = toInv.slots[toIdx];
-            if (!toSlot) {
-                toInv.slots[toIdx] = clone(fromSlot);
-                this.slots[fromIdx] = null;
-
-                const fromItemInfo = this.items[fromSlot.id];
-                const fromIdxPos = fromItemInfo.idx.indexOf(fromIdx);
-                fromItemInfo.idx.splice(fromIdxPos, 1);
-                fromItemInfo.num.splice(fromIdxPos, 1);
-
-
-                if (!toInv.items[fromSlot.id]) {
-                    toInv.items[fromSlot.id] = {
-                        idx: [toIdx],
-                        num: [fromSlot.count]
-                    };
-                } else {
-                    toInv.items[fromSlot.id].idx.push(toIdx);
-                    toInv.items[fromSlot.id].num.push(fromSlot.count);
-                }
-
-                return this.#buildMsg(toIdx, fromSlot.id, Inventory.StatusCode.SUCCESS);
+            const {id, count, durability} = fromSlot;
+            const result = toInv.store(id, count, toIdx, durability, false);
+            if(result.code === Inventory.StatusCode.SUCCESS) {
+                this.drop(fromIdx, count);
+            } else if(result.code === Inventory.StatusCode.INVENTORY_FULL) {
+                this.drop(fromIdx, count - result.drop);
             }
-
-            if (fromSlot.id === toSlot.id) {
-                const item = Item.get(fromSlot.id);
-                if (item?.stackable || !item) {
-
-                    const totalCount = fromSlot.count + toSlot.count;
-                    if (totalCount <= toInv.maxStack) {
-
-                        toSlot.count = totalCount;
-                        this.slots[fromIdx] = null;
-
-
-                        const fromItemInfo = this.items[fromSlot.id];
-                        const fromIdxPos = fromItemInfo.idx.indexOf(fromIdx);
-                        fromItemInfo.idx.splice(fromIdxPos, 1);
-                        fromItemInfo.num.splice(fromIdxPos, 1);
-
-
-                        const toItemInfo = toInv.items[toSlot.id];
-                        const toIdxPos = toItemInfo.idx.indexOf(toIdx);
-                        toItemInfo.num[toIdxPos] = totalCount;
-
-                        return this.#buildMsg(toIdx, fromSlot.id, Inventory.StatusCode.SUCCESS);
-                    } else {
-
-                        const remainCount = totalCount - toInv.maxStack;
-                        toSlot.count = toInv.maxStack;
-                        fromSlot.count = remainCount;
-
-
-                        const fromItemInfo = this.items[fromSlot.id];
-                        const fromIdxPos = fromItemInfo.idx.indexOf(fromIdx);
-                        fromItemInfo.num[fromIdxPos] = remainCount;
-
-
-                        const toItemInfo = toInv.items[toSlot.id];
-                        const toIdxPos = toItemInfo.idx.indexOf(toIdx);
-                        toItemInfo.num[toIdxPos] = toInv.maxStack;
-
-                        return this.#buildMsg(toIdx, fromSlot.id, Inventory.StatusCode.SUCCESS);
-                    }
-                }
-            }
-
-
-            const tempSlot = clone(fromSlot);
-            this.slots[fromIdx] = clone(toSlot);
-            toInv.slots[toIdx] = tempSlot;
-
-
-            const fromItemInfo = this.items[fromSlot.id];
-            const fromIdxPos = fromItemInfo.idx.indexOf(fromIdx);
-            fromItemInfo.idx.splice(fromIdxPos, 1);
-            fromItemInfo.num.splice(fromIdxPos, 1);
-
-            if (!this.items[toSlot.id]) {
-                this.items[toSlot.id] = {
-                    idx: [fromIdx],
-                    num: [toSlot.count]
-                };
-            } else {
-                this.items[toSlot.id].idx.push(fromIdx);
-                this.items[toSlot.id].num.push(toSlot.count);
-            }
-
-
-            const toItemInfo = toInv.items[toSlot.id];
-            const toIdxPos = toItemInfo.idx.indexOf(toIdx);
-            toItemInfo.idx.splice(toIdxPos, 1);
-            toItemInfo.num.splice(toIdxPos, 1);
-
-            if (!toInv.items[fromSlot.id]) {
-                toInv.items[fromSlot.id] = {
-                    idx: [toIdx],
-                    num: [fromSlot.count]
-                };
-            } else {
-                toInv.items[fromSlot.id].idx.push(toIdx);
-                toInv.items[fromSlot.id].num.push(fromSlot.count);
-            }
-
-            return this.#buildMsg(toIdx, fromSlot.id, Inventory.StatusCode.SUCCESS);
+            return result;
         }
 
         /**
@@ -471,12 +410,25 @@
                         itemInfo.idx.splice(fromIdxPos, 1);
                         itemInfo.num.splice(fromIdxPos, 1);
                     }
-
-                    return this.#buildMsg(toIdx, fromSlot.id, Inventory.StatusCode.SUCCESS);
                 }
-            }
+            } else {
+                
+                const fromItemInfo = this.items[fromSlot.id];
+                const toItemInfo = this.items[toSlot.id];
+                const fromIdxPos = fromItemInfo.idx.indexOf(fromIdx);
+                const toIdxPos = toItemInfo.idx.indexOf(toIdx);
 
-            return this.#buildMsg(toIdx, fromSlot.id, Inventory.StatusCode.SLOT_OCCUPIED);
+                fromItemInfo.idx[fromIdxPos] = toIdx;
+                fromItemInfo.num[fromIdxPos] = toSlot.count;
+
+                toItemInfo.idx[toIdxPos] = fromIdx;
+                toItemInfo.num[toIdxPos] = fromSlot.count;
+
+                this.slots[fromIdx] = toSlot;
+                this.slots[toIdx] = fromSlot; 
+
+            }
+            return this.#buildMsg(toIdx, fromSlot.id, Inventory.StatusCode.SUCCESS);
         }
 
         /**
