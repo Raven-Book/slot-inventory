@@ -11,7 +11,7 @@
         stackable: false,      // 是否可堆叠
         durability: 0,         // 最大耐久度,0表示无耐久度
         cat: 'misc',           // 物品分类
-        subcat: 'other',       // 物品子分类
+        sub: 'other',       // 物品子分类
         order: 0,              // 物品排序权重
     };
 
@@ -141,6 +141,10 @@
 
         static has(id) {
             return ItemList.has(id);
+        }
+
+        static filter(callback) {
+            return Array.from(ItemList.values()).filter(callback);
         }
 
         static get list() {

@@ -7,3 +7,28 @@
 > 打包文件在 [dist/assets](../dist/assets) 中下载
 
 ![Slot Inventory](imgs/image.png)
+
+
+```
+assets/js/
+├── inventory/          # 物品栏系统相关代码
+│   ├── 000-popup.js   # 弹窗界面控制
+│   ├── 001-type.js    # 物品类型定义
+│   ├── 002-item.js    # 物品基础类
+│   ├── 003-inv.js     # 物品栏核心逻辑
+│   ├── 004-display.js # 物品栏显示控制
+│   └── 005-macro.js   # 物品栏宏命令处理
+└── recipes/           # 合成配方系统
+    ├── book.js        # 配方书功能
+    ├── macro.js       # 合成相关宏命令
+    └── recipe.js      # 合成配方定义
+```
+
+## 目录
+
+- [指南](./guide.md)
+- [下载](../dist/assets/)
+- API 文档
+  - [Popup API](./popup-api.md)
+  - [Item API](./item-api.md)
+  - [Inventory API](./inv-api.md)

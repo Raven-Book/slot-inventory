@@ -152,41 +152,79 @@
          * @returns {number} 剩余未存储的数量
          */
         #addToSlot(id, count, idx, durability) {
+            if (count < 1) return count;
+            
             const slot = this.slots[idx];
             const item = Item.get(id);
-
+            
             if (!slot) {
-                const insertCount = Math.min(count, this.maxStack);
+                return this.#createNewStack(id, count, idx, item, durability);
+            }
+            
+            // 如果格子已有相同物品且可堆叠，尝试合并
+            if (slot.id === id && this.canStack(item)) {
+                return this.#mergeWithExistingStack(id, count, idx, slot);
+            }
+            
+            return count;
+        }
+
+        /**
+         * 创建新的物品堆
+         * @private
+         */
+        #createNewStack(id, count, idx, item, durability) {
+            // 处理有耐久度或不可堆叠的物品
+            if (item?.durability > 0 || (item != null && !item?.stackable)) {
                 this.slots[idx] = {
                     id: id,
-                    count: insertCount,
+                    count: 1,
                     durability: item?.durability > 0
-                        ? (durability == null ? item.durability : durability)
+                        ? (durability ?? item.durability)
                         : null
                 };
-
-                if (!this.items[id]) {
-                    this.items[id] = {idx: [idx], num: [insertCount]}
-                } else {
-                    const info = this.items[id];
-                    info.idx.push(idx);
-                    info.num.push(insertCount);
-                }
-
-                return count - insertCount;
-            } else if (slot.id === id && (item?.stackable || !item)) {
-                const available = this.maxStack - slot.count;
-                const insertCount = Math.min(count, available);
-                slot.count += insertCount;
-
-                const info = this.items[id];
-                const slotIdxPos = info.idx.indexOf(idx);
-                info.num[slotIdxPos] += insertCount;
-                
-                return count - insertCount;
+                this.#updateItemsIndex(id, idx, 1);
+                return count - 1;
             }
 
-            return count;
+            const insertCount = Math.min(count, this.maxStack);
+            this.slots[idx] = {
+                id: id,
+                count: insertCount,
+                durability: null
+            };
+            this.#updateItemsIndex(id, idx, insertCount);
+            return count - insertCount;
+        }
+
+        /**
+         * 合并到已存在的物品堆
+         * @private
+         */
+        #mergeWithExistingStack(id, count, idx, slot) {
+            const available = this.maxStack - slot.count;
+            const insertCount = Math.min(count, available);
+            slot.count += insertCount;
+
+            const info = this.items[id];
+            const slotIdxPos = info.idx.indexOf(idx);
+            info.num[slotIdxPos] += insertCount;
+
+            return count - insertCount;
+        }
+
+        /**
+         * 更新物品索引
+         * @private
+         */
+        #updateItemsIndex(id, idx, count) {
+            if (!this.items[id]) {
+                this.items[id] = {idx: [idx], num: [count]};
+            } else {
+                const info = this.items[id];
+                info.idx.push(idx);
+                info.num.push(count);
+            }
         }
 
         /**
@@ -331,7 +369,14 @@
             }
 
             const {id, count, durability} = fromSlot;
-            const result = toInv.store(id, count, toIdx, durability, false);
+            
+            let result;
+            if (!Item.get(id)?.permanent) {
+                result = toInv.store(id, count, toIdx, durability, false);
+            } else {
+                result = this.#buildMsg(fromIdx, id, Inventory.StatusCode.PERMANENT_ITEM);
+            }
+
             if(result.code === Inventory.StatusCode.SUCCESS) {
                 this.drop(fromIdx, count);
             } else if(result.code === Inventory.StatusCode.INVENTORY_FULL) {
@@ -397,7 +442,6 @@
                 if (moveCount > 0) {
                     toSlot.count += moveCount;
                     fromSlot.count -= moveCount;
-
 
                     const itemInfo = this.items[fromSlot.id];
                     const fromIdxPos = itemInfo.idx.indexOf(fromIdx);
@@ -514,7 +558,6 @@
             const newSlots = new Array(this.maxSlots).fill(null);
             const newItems = {};
 
-
             lockedSlotsInfo.forEach(({slot, idx}) => {
                 newSlots[idx] = slot;
                 const id = slot.id;
@@ -528,7 +571,6 @@
                     newItems[id].num.push(slot.count);
                 }
             });
-
 
             let currentIdx = 0;
             nonEmptySlots.forEach(({slot}) => {
@@ -600,7 +642,6 @@
 
 
             slot.count -= count;
-
 
             const itemInfo = this.items[slot.id];
             itemInfo.idx.push(emptyIdx);
@@ -691,6 +732,14 @@
             return this.#buildMsg(idx, slot.id, Inventory.StatusCode.SUCCESS);
         }
 
+        /**
+         * 根据物品ID获取格子索引
+         * @param {string} id - 物品ID
+         * @returns {number} 格子索引
+         */
+        indexOf(id) {
+            return this.items[id]?.idx[0] ?? -1;
+        }
 
         /**
          * 为指定格子中的物品添加耐久
@@ -781,6 +830,16 @@
 
             return itemInfo.num.reduce((sum, num) => sum + num, 0);
         }
+
+        /**
+         * 判断物品是否可堆叠
+         * @param {Object} item - 物品对象
+         * @returns {boolean} 是否可堆叠
+         */
+        canStack(item) {
+            return (item?.stackable || !item) && !(item?.durability > 0);
+        }
+
 
         /**
          * 判断背包是否已满

@@ -1,13 +1,13 @@
 (() => {
-    function isValidVariable (varName) {
+    function isValidVariable(varName) {
         return varName && typeof varName === 'string' && varName.length >= 2 && (varName[0] === '$' || varName[0] === '_');
     }
 
     function extractVarName(args, idx) {
         return args.trim()
-        .split(' ')[idx]
-        .replace(/['"]/g, '')
-        .trim();
+            .split(' ')[idx]
+            .replace(/['"]/g, '')
+            .trim();
     }
 
 
@@ -30,7 +30,7 @@
             }
         }
     }
-    
+
     Macro.add('newinv', {
         handler() {
             const varName = extractVarName(this.args.raw, 0);
@@ -46,10 +46,10 @@
                 const num = parseInt(this.args[2]);
                 opts.maxStack = isNaN(num) ? Inventory.DefaultOpts.maxStack : num;
             }
-            State.setVar(varName, new Inventory([], {}, opts));   
+            State.setVar(varName, new Inventory([], {}, opts));
         }
     });
-    
+
     Macro.add('transfer', {
         handler() {
             if (this.args.length < 3) {
@@ -86,6 +86,9 @@
                     break;
                 case Code.SLOT_FULL:
                     Popup.info('转移失败', '目标格子已满');
+                    break;
+                case Code.PERMANENT_ITEM:
+                    Popup.info('转移失败', `${result.item}无法转移`);
                     break;
                 default:
                     Popup.error('转移失败', result.message);
@@ -137,15 +140,41 @@
             const raw = this.args.raw;
             const inv1 = getInv(raw, 0);
             checkInv(inv1);
-            if(this.name === 'inv') {
+            if (this.name === 'inv') {
                 inv1.render(this.output);
             } else {
                 const inv2 = getInv(raw, 1);
-                inv1.render(this.output, inv2, this.name); 
+                inv1.render(this.output, inv2, this.name);
             }
-        }   
+        }
     });
 
+    Macro.add('use', {
+        handler() {
+            if (this.args.length < 2) {
+                return this.error('Not enough arguments provided. At least two arguments are required');
+            }
+
+            const inv = getInv(this.args.raw, 0);
+
+            if (!(inv instanceof Inventory)) {
+                return this.error('The first argument must be a inventory!');
+            }
+
+            const idx = typeof this.args[1] === 'string' ? inv.indexOf(this.args[1]) : this.args[1] - 1; 
+
+            if (isNaN(idx)) {
+                return this.error('The second argument must be a valid slot index!');
+            }
+
+            if (idx === -1) {
+                Popup.info('物品不存在', `${this.args[1]}不存在于容器中`);
+                return;
+            }
+
+            inv.use(idx);
+        }
+    });
 
     Macro.add(AllCategories, {
         tags: ['description', 'tags', 'durability', 'unstackable', 'permanent', 'unique', 'url'],
@@ -157,7 +186,7 @@
             const id = this.args[0];
             const name = this.args[1] ?? id;
 
-            let tags, durability, url = '', description = '', handler = null, unstackable = false, permanent = false, unique = false;
+            let tags, durability = 0, url = '', description = '', handler = null, unstackable = false, permanent = false, unique = false;
 
             handler = this.payload[0].contents.trim();
 
@@ -205,5 +234,5 @@
         }
     });
 
-    
+
 })();
