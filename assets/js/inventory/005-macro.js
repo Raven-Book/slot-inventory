@@ -78,7 +78,7 @@
             switch (result.code) {
                 case Code.SUCCESS:
                     if (State.length > 0) {
-                        Popup.info('转移成功', `物品已成功转移到目标背包`);
+                        Popup.success('转移成功', `物品已成功转移到目标背包`);
                     }
                     break;
                 case Code.INVALID_SLOT:
@@ -121,7 +121,7 @@
                         Popup.info('操作失败', result.message);
                         break;
                     case Code.SUCCESS:
-                        Popup.info('操作成功', `${result.item}(x${num})被丢弃`);
+                        Popup.info('操作成功', `${Item.get(result.item)?.displayName ?? result.item}(x${num})被丢弃`);
                         break;
                     default:
                         Popup.error('操作失败', result.message);
@@ -129,6 +129,29 @@
                 return;
             }
             inv.store(this.args[1], this.args[2], this.args[3], this.args[4]);
+        }
+    });
+
+    Macro.add('delete', {
+        handler() {
+            const inv = this.args[0];
+            const Code = Inventory.StatusCode;
+            
+            if (this.args.length < 2) {
+                return this.error('Not enough arguments provided. At least two arguments are required');
+            }
+
+            if (!(inv instanceof Inventory)) {
+                return this.error('The first argument must be a inventory!');
+            }  
+
+            const result = inv.delete(...this.args.slice(1)) ;
+
+            if (result.code !== Code.SUCCESS) {
+                Popup.error('操作失败', result.message);
+            } else {
+                Popup.success('操作成功', `物品被删除`);
+            }
         }
     });
 

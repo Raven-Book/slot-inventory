@@ -14,13 +14,13 @@ Inventory 示例
 <<newinv $inv2 10 30>>
 <<store $inv1 '诅咒木' 2>>
 <<store $inv1 '诅咒木' 2>>
-<<store $inv1 'iron_sword' 5>>
+<<store $inv1 'iron_sword' 5 null 20>>
 <<store $inv1 'iron_ore' 20>>
 <<store $inv1 '煤炭' 100>> 
 <<store $inv2 '木剑' 1 null 10>>
 <<store $inv2 '治疗药水' 10>>
 <<store $inv2 '伤害药水' 10>>
-
+<<store $inv2 '石剑'>>
 /* 转移$inv1的物品到$inv2 */
 <<transfer $inv1 $inv2 4>>
 <<transfer $inv1 $inv2 5>>
@@ -47,9 +47,31 @@ Inventory 示例
 [[物品获取]]
 [[物品给予]]
 [[背包页面]]
-[[物品查找]]
 [[物品使用]]
+[[物品删除]]
+[[查找已注册的物品|物品查找]]
 
+:: 物品删除
+[[返回|Start]]
+
+<<button '移除第一格的物品'>>
+    <<drop $inv1 1>>
+<</button>>
+
+<<button '移除第九格物品一个'>>
+    <<drop $inv1 9 1>>
+<</button>>
+
+<<button '移除第十格物品一个'>>
+    <<drop $inv1 10 1>>
+<</button>>
+
+<<button '删除所有诅咒木'>>
+    /* 获取诅咒木的数量 */
+    <<set _count = $inv1.count('诅咒木')>>
+    /* delete会无视不可丢弃的标志 */
+    <<delete $inv1 '诅咒木' _count>>
+<</button>>
 :: 物品获取
 [[返回|Start]]
 

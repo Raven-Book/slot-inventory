@@ -659,6 +659,8 @@
          * @returns {Object} 删除结果
          */
         delete(...items) {
+            items = items.flat(Infinity);
+            debugger;
             if (items.length === 0) {
                 return this.#buildMsg(null, null, Inventory.StatusCode.INVALID_ARGS);
             }
