@@ -1,6 +1,6 @@
 (() => {
     'use strict';
-    debugger;
+
     const defaultOpts = {
         url: '',
         description : '',      // 检查物品时在模态框中显示的描述文本
@@ -11,65 +11,13 @@
         stackable: false,      // 是否可堆叠
         durability: 0,         // 最大耐久度,0表示无耐久度
         cat: 'misc',           // 物品分类
-        sub: 'other',       // 物品子分类
-        order: 0,              // 物品排序权重
+        sub: 'other',         // 物品子分类
+        order: 0,             // 物品排序权重
     };
-
-    const Categories = Object.freeze({
-        // 装备
-        equipment: {
-            name: 'equipment',
-            order: 100,
-            sub: {
-                weapon: 110,     // 武器
-                armor: 120,      // 护甲
-                accessory: 130,  // 饰品
-                other: 140,      // 其他
-            }
-        },
-        // 消耗品
-        consumable: {
-            name: 'consumable',
-            order: 200,
-            sub: {
-                potion: 210,     // 药水
-                scroll: 220,     // 卷轴
-                food: 230,       // 食物
-                other: 240,      // 其他
-            }
-        },
-        // 材料
-        material: {
-            name: 'material',
-            order: 300,
-            sub: {
-                quest: 310,      // 任务物品
-                ore: 320,        // 矿石
-                herb: 330,       // 草药
-                wood: 340,       // 木材
-                hide: 350,       // 兽皮
-                bone: 360,       // 骨头
-                gem: 370,        // 宝石
-                metal: 380,      // 金属
-                cloth: 390,      // 布料
-                other: 400,      // 其他
-            }
-        },
-        // 其他
-        misc: {
-            name: 'misc',
-            order: 900,
-            sub: {
-                quest: 910,      // 任务物品
-                other: 920,      // 其他
-            }
-        }
-    });
 
     const ItemList = new Map();
 
     class Item {
-
         static DefaultItem = new Item('Other', {
             cat: 'misc',
             sub: 'other',
@@ -89,12 +37,13 @@
 
             Object.assign(this, Object.assign({}, defaultOpts, opts));
 
-            if (!validateCategory(this.cat, this.sub)) {
-                throw new Error('Invalid item category: ' + this.cat);
-            }
-
+            // 验证并规范化分类
             this.cat = this.cat.toLowerCase();
             this.sub = this.sub.toLowerCase();
+            
+            if (!ItemCategory.validate(this.cat, this.sub)) {
+                throw new Error(`Invalid item category: ${this.cat}.${this.sub}`);
+            }
 
             this.id = id;
             this._tags = tags instanceof Array ? tags : 
@@ -174,22 +123,20 @@
                 return 0;
             }
 
-            const catA = Categories[this.cat]?.order || 999;
-            const catB = Categories[other.cat]?.order || 999;
-            if (catA !== catB) {
-                return catA - catB;
+            // 获取分类排序顺序
+            const catOrderA = ItemCategory.getOrder(`${this.cat}.${this.sub}`);
+            const catOrderB = ItemCategory.getOrder(`${other.cat}.${other.sub}`);
+
+            if (catOrderA !== catOrderB) {
+                return catOrderA - catOrderB;
             }
 
-            const subA = Categories[this.cat]?.sub[this.subcat] || 999;
-            const subB = Categories[other.cat]?.sub[other.subcat] || 999;
-            if (subA !== subB) {
-                return subA - subB;
-            }
-
+            // 如果分类顺序相同，使用物品自身的order
             if (this.order !== other.order) {
                 return this.order - other.order;
             }
 
+            // 最后按名称排序
             return (this.displayName || this.id).localeCompare(other.displayName || other.id);
         }
 

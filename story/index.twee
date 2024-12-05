@@ -9,6 +9,7 @@
 Inventory 示例
 
 :: StoryInit
+<<set Popup.darkMode = false>>
 <<set $hp = 100>>
 <<newinv $inv1 20 64>>
 <<newinv $inv2 10 30>>
@@ -44,6 +45,7 @@ Inventory 示例
 <</link>>
 
 :: Start
+<<run Popup.success('欢迎', '欢迎来到Inventory示例')>>  
 [[物品获取]]
 [[物品给予]]
 [[背包页面]]

@@ -156,9 +156,9 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     margin-left: 8px;
 }
 /* twine-user-stylesheet #2: "inventory.css" */
-/* Slot Inventory Styles, Ver.0.1.4 */
-/* Build Date: 2024-11-28T13:42:13.606Z */
-.inventory-container{background:rgba(0,0,0,.1);border-radius:4px;padding:1em}.inventory-grid{display:grid;gap:.5em;grid-template-columns:repeat(5,1fr)}.inv-slot{aspect-ratio:1;background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;cursor:pointer;min-height:48px;overflow:hidden;padding:.25em;position:relative;transition:all .2s}.inv-slot img{border-radius:inherit;height:100%;left:0;object-fit:cover;pointer-events:none;position:absolute;top:0;width:100%}.inv-slot:hover:not(.slot-img){background:hsla(0,0%,100%,.2)}.inv-slot.empty{background:rgba(0,0,0,.2)}.inv-slot.dragging{background:hsla(0,0%,39%,.3);opacity:.5}.inv-slot.drag-over{background:rgba(100,200,100,.3);border:2px solid #4caf50}.inv-slot.touch-active{animation:touchPulse .5s ease-in-out;background:hsla(0,0%,39%,.2)}.item-name{font-size:.8em;text-align:center;word-break:break-all}.item-count{font-size:.7em;opacity:.8}.item-count,.item-durability-container{bottom:.2em;position:absolute;right:.2em}.item-durability-container{background:rgba(0,0,0,.3);border-radius:2px;height:4px;left:.2em;overflow:hidden}.item-durability-bar{height:100%;transition:all .2s}.item-durability-bar.perfect{background:linear-gradient(90deg,rgba(100,255,150,.8),rgba(60,220,100,.9));box-shadow:0 0 4px rgba(80,255,120,.4)}.item-durability-bar.high{background:linear-gradient(90deg,rgba(120,190,255,.8),rgba(80,140,255,.9));box-shadow:0 0 4px rgba(120,190,255,.4)}.item-durability-bar.good{background:linear-gradient(90deg,rgba(180,180,255,.8),rgba(140,140,255,.9));box-shadow:0 0 4px rgba(160,160,255,.4)}.item-durability-bar.medium{background:linear-gradient(90deg,rgba(255,180,100,.8),rgba(255,140,60,.9));box-shadow:0 0 4px rgba(255,160,80,.4)}.item-durability-bar.poor{background:linear-gradient(90deg,rgba(255,140,100,.8),rgba(255,100,60,.9));box-shadow:0 0 4px rgba(255,120,80,.4)}.item-durability-bar.low{background:linear-gradient(90deg,hsla(0,100%,70%,.8),rgba(255,60,60,.9));box-shadow:0 0 4px rgba(255,80,80,.4)}.item-durability-text{align-items:center;bottom:1.2em;display:flex;font-size:.7em;gap:.3em;left:.2em;opacity:.8;position:absolute}.item-durability-text:after{color:hsla(0,0%,100%,.6);content:attr(data-percent);font-size:.9em}.item-context-menu{background:hsla(0,0%,8%,.95);border:1px solid #444;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.5);min-width:120px;padding:4px 0;position:fixed}.item-context-menu .menu-item{background:transparent;color:#fff;cursor:pointer;padding:8px 16px;user-select:none}.item-context-menu .menu-item:hover{background:hsla(0,0%,39%,.3)}.item-context-menu .menu-item.disabled{color:#888;cursor:not-allowed;opacity:.5}.item-context-menu .menu-item.disabled:hover{background:transparent}.item-context-menu .menu-separator{background:#444;height:1px;margin:4px 0}.inventory-controls{align-items:center;display:flex;gap:1em;margin-bottom:1em}.inv-search{background:rgba(0,0,0,.2);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;color:inherit;flex:1;padding:.5em}.inv-buttons{display:flex;gap:.5em}.inv-filter,.inv-regex-toggle,.inv-sort{background:rgba(0,0,0,.2);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;color:inherit;cursor:pointer;padding:.5em 1em;transition:all .2s}.inv-filter:hover,.inv-regex-toggle:hover,.inv-sort:hover{background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2)}ul.transfer-table.slot-inventory{margin:0 auto;padding:0}.slot-inventory-listing{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;list-style:none;padding:.3rem .3rem .3rem 1rem}.slot-inventory-listing:nth-child(2n){background-color:#000}.inventory-transfer-container>a,.inventory-transfer-container>span{display:inline-block}.all-listing.slot-inventory-listing{background-color:transparent;border-top:1px solid #fafafa}@keyframes touchPulse{0%{transform:scale(1)}50%{transform:scale(1.05)}to{transform:scale(1)}}@media(max-width:768px){.inv-filter,.inv-regex-toggle,.inv-sort{font-size:.9em;margin:0 2px;min-height:44px;min-width:44px;padding:.8em 1.2em}.inv-filter{text-align:center}.inventory-controls{flex-wrap:wrap;gap:.8em}.inv-buttons{justify-content:space-between;width:100%}}@media(max-width:436px){.inventory-grid{grid-template-columns:repeat(3,1fr)}.inv-buttons{flex-direction:column;gap:.5em}.inventory-controls{align-items:stretch;flex-direction:column}.inv-search{margin-bottom:.5em;width:auto}}.custom-popup{background:rgba(40,40,40,.95);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.5);color:#fff;min-height:60px;opacity:0;overflow:hidden;padding:16px;position:fixed;right:20px;top:20px;transform:scale(.95) translateY(-10px);transition:all .4s cubic-bezier(.34,1.56,.64,1);width:280px;z-index:999999}.custom-popup.popup-default{background:rgba(40,40,40,.95);box-shadow:0 4px 20px rgba(40,40,40,.3)}.custom-popup.popup-info{background:rgba(64,158,255,.95);box-shadow:0 4px 20px rgba(64,158,255,.3)}.custom-popup.popup-success{background:rgba(103,194,58,.95);box-shadow:0 4px 20px rgba(103,194,58,.3)}.custom-popup.popup-warn{background:rgba(230,162,60,.95);box-shadow:0 4px 20px rgba(230,162,60,.3)}.custom-popup.popup-error{background:rgba(179,69,69,.95);box-shadow:0 4px 20px rgba(179,69,69,.3)}.custom-popup.popup-debug{background:rgba(54,53,53,.95);box-shadow:0 4px 20px rgba(54,53,53,.3)}.custom-popup.popup-debug.dark-mode,.custom-popup.popup-info.dark-mode,.custom-popup.popup-success.dark-mode,.custom-popup.popup-warn.dark-mode{background:rgba(54,53,53,.95);box-shadow:0 4px 20px rgba(50,50,50,.3)}.custom-popup.popup-debug.dark-mode .popup-progress,.custom-popup.popup-info.dark-mode .popup-progress,.custom-popup.popup-success.dark-mode .popup-progress,.custom-popup.popup-warn.dark-mode .popup-progress{background:hsla(0,0%,39%,.3)}.custom-popup.popup-error,.custom-popup.popup-error.dark-mode{background:rgba(179,69,69,.95);box-shadow:0 4px 20px rgba(179,69,69,.3)}.custom-popup:before{background-repeat:no-repeat;background-size:contain;content:"";height:20px;left:16px;opacity:.8;position:absolute;top:16px;transform:translate(var(--icon-offset-x,0),var(--icon-offset-y,0));width:20px}.custom-popup.popup-info:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 15h-2v-6h2zm0-8h-2V7h2z'/%3E%3C/svg%3E")}.custom-popup.popup-success:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")}.custom-popup.popup-warn:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M1 21h22L12 2zm12-3h-2v-2h2zm0-4h-2v-4h2z'/%3E%3C/svg%3E")}.custom-popup.popup-error:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12z'/%3E%3C/svg%3E")}.custom-popup.popup-debug:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M20 8h-2.81a6 6 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5s-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20zm-6 8h-4v-2h4zm0-4h-4v-2h4z'/%3E%3C/svg%3E")}.custom-popup.show{opacity:1;transform:scale(1) translateY(0)}.custom-popup .popup-title{color:#fff;font-size:16px;font-weight:600;line-height:1.4;padding-left:32px;padding-right:16px}.custom-popup .popup-title+.popup-content{margin-top:10px}.custom-popup .popup-content{color:hsla(0,0%,100%,.9);font-size:14px;line-height:1.5;margin-top:4px;padding-left:32px}.custom-popup .popup-close{border-radius:12px;color:hsla(0,0%,100%,.6);cursor:pointer;font-size:20px;height:24px;line-height:24px;position:absolute;right:12px;text-align:center;top:12px;transition:all .2s;width:24px}.custom-popup .popup-close:hover{background:hsla(0,0%,100%,.1);color:#fff}.custom-popup .popup-progress{background:hsla(0,0%,100%,.3);border-radius:0 0 12px 12px;bottom:0;height:3px;left:0;position:absolute;transform:translateX(0);transform-origin:left center;width:100%;will-change:transform}.custom-popup .popup-progress:after{background:linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,.5) 50%,hsla(0,0%,100%,0));content:"";height:100%;left:0;position:absolute;top:0;width:100%}
+/* Slot Inventory Styles, Ver.0.1.6 */
+/* Build Date: 2024-12-05T05:28:52.503Z */
+.inventory-container{background:rgba(0,0,0,.1);border-radius:4px;padding:1em}.inventory-grid{display:grid;gap:.5em;grid-template-columns:repeat(5,1fr)}.inv-slot{aspect-ratio:1;background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;cursor:pointer;min-height:48px;overflow:hidden;padding:.25em;position:relative;transition:all .2s}.inv-slot img{border-radius:inherit;height:100%;left:0;object-fit:cover;pointer-events:none;position:absolute;top:0;width:100%}.inv-slot:hover:not(.slot-img){background:hsla(0,0%,100%,.2)}.inv-slot.empty{background:rgba(0,0,0,.2)}.inv-slot.dragging{background:hsla(0,0%,39%,.3);opacity:.5}.inv-slot.drag-over{background:rgba(100,200,100,.3);border:2px solid #4caf50}.inv-slot.touch-active{animation:touchPulse .5s ease-in-out;background:hsla(0,0%,39%,.2)}.item-name{font-size:.8em;text-align:center;word-break:break-all}.item-count{font-size:.7em;opacity:.8}.item-count,.item-durability-container{bottom:.2em;position:absolute;right:.2em}.item-durability-container{background:rgba(0,0,0,.3);border-radius:2px;height:4px;left:.2em;overflow:hidden}.item-durability-bar{height:100%;transition:all .2s}.item-durability-bar.perfect{background:linear-gradient(90deg,rgba(100,255,150,.8),rgba(60,220,100,.9));box-shadow:0 0 4px rgba(80,255,120,.4)}.item-durability-bar.high{background:linear-gradient(90deg,rgba(120,190,255,.8),rgba(80,140,255,.9));box-shadow:0 0 4px rgba(120,190,255,.4)}.item-durability-bar.good{background:linear-gradient(90deg,rgba(180,180,255,.8),rgba(140,140,255,.9));box-shadow:0 0 4px rgba(160,160,255,.4)}.item-durability-bar.medium{background:linear-gradient(90deg,rgba(255,180,100,.8),rgba(255,140,60,.9));box-shadow:0 0 4px rgba(255,160,80,.4)}.item-durability-bar.poor{background:linear-gradient(90deg,rgba(255,140,100,.8),rgba(255,100,60,.9));box-shadow:0 0 4px rgba(255,120,80,.4)}.item-durability-bar.low{background:linear-gradient(90deg,hsla(0,100%,70%,.8),rgba(255,60,60,.9));box-shadow:0 0 4px rgba(255,80,80,.4)}.item-durability-text{align-items:center;bottom:1.2em;display:flex;font-size:.7em;gap:.3em;left:.2em;opacity:.8;position:absolute}.item-durability-text:after{color:hsla(0,0%,100%,.6);content:attr(data-percent);font-size:.9em}.item-context-menu{background:hsla(0,0%,8%,.95);border:1px solid #444;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.5);min-width:120px;padding:4px 0;position:fixed}.item-context-menu .menu-item{background:transparent;color:#fff;cursor:pointer;padding:8px 16px;user-select:none}.item-context-menu .menu-item:hover{background:hsla(0,0%,39%,.3)}.item-context-menu .menu-item.disabled{color:#888;cursor:not-allowed;opacity:.5}.item-context-menu .menu-item.disabled:hover{background:transparent}.item-context-menu .menu-separator{background:#444;height:1px;margin:4px 0}.inventory-controls{align-items:center;display:flex;gap:1em;margin-bottom:1em}.inv-search{background:rgba(0,0,0,.2);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;color:inherit;flex:1;padding:.5em}.inv-buttons{display:flex;gap:.5em}.inv-filter,.inv-regex-toggle,.inv-sort{background:rgba(0,0,0,.2);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;color:inherit;cursor:pointer;padding:.5em 1em;transition:all .2s}.inv-filter:hover,.inv-regex-toggle:hover,.inv-sort:hover{background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2)}ul.transfer-table.slot-inventory{margin:0 auto;padding:0}.slot-inventory-listing{display:grid;grid-template-columns:repeat(5,1fr);list-style:none;padding:.3rem .3rem .3rem 1rem}.slot-inventory-listing:nth-child(2n){background-color:#000}.inventory-transfer-container>a,.inventory-transfer-container>span{display:inline-block}.all-listing.slot-inventory-listing{background-color:transparent;border-top:1px solid #fafafa}.equipment-container{background:rgba(0,0,0,.15);border:1px solid hsla(0,0%,100%,.1);border-radius:4px;margin-bottom:1em;padding:1em}.equipment-container .equipment-title{color:hsla(0,0%,100%,.9);font-size:1.2em;margin-bottom:.5em;text-align:center}.equipment-container .equipment-grid{background:rgba(0,0,0,.2);border-radius:4px;display:grid;gap:.5em;grid-template-columns:repeat(4,1fr);padding:.5em}@keyframes touchPulse{0%{transform:scale(1)}50%{transform:scale(1.05)}to{transform:scale(1)}}@media(max-width:768px){.inv-filter,.inv-regex-toggle,.inv-sort{font-size:.9em;margin:0 2px;min-height:44px;min-width:44px;padding:.8em 1.2em}.inv-filter{text-align:center}.inventory-controls{flex-wrap:wrap;gap:.8em}.inv-buttons{justify-content:space-between;width:100%}}@media(max-width:436px){.inventory-grid{grid-template-columns:repeat(3,1fr)}.inv-buttons{flex-direction:column;gap:.5em}.inventory-controls{align-items:stretch;flex-direction:column}.inv-search{margin-bottom:.5em;width:auto}}.custom-popup{background:rgba(40,40,40,.95);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.5);color:#fff;min-height:60px;opacity:0;overflow:hidden;padding:16px;position:fixed;right:20px;top:20px;transform:scale(.95) translateY(-10px);transition:all .4s cubic-bezier(.34,1.56,.64,1);width:280px;z-index:999999}.custom-popup.popup-default{background:rgba(40,40,40,.95);box-shadow:0 4px 20px rgba(40,40,40,.3)}.custom-popup.popup-info{background:rgba(64,158,255,.95);box-shadow:0 4px 20px rgba(64,158,255,.3)}.custom-popup.popup-success{background:rgba(103,194,58,.95);box-shadow:0 4px 20px rgba(103,194,58,.3)}.custom-popup.popup-warn{background:rgba(230,162,60,.95);box-shadow:0 4px 20px rgba(230,162,60,.3)}.custom-popup.popup-error{background:rgba(179,69,69,.95);box-shadow:0 4px 20px rgba(179,69,69,.3)}.custom-popup.popup-debug{background:rgba(54,53,53,.95);box-shadow:0 4px 20px rgba(54,53,53,.3)}.custom-popup.popup-debug.dark-mode,.custom-popup.popup-info.dark-mode,.custom-popup.popup-success.dark-mode,.custom-popup.popup-warn.dark-mode{background:rgba(54,53,53,.95);box-shadow:0 4px 20px rgba(50,50,50,.3)}.custom-popup.popup-debug.dark-mode .popup-progress,.custom-popup.popup-info.dark-mode .popup-progress,.custom-popup.popup-success.dark-mode .popup-progress,.custom-popup.popup-warn.dark-mode .popup-progress{background:hsla(0,0%,39%,.3)}.custom-popup.popup-error,.custom-popup.popup-error.dark-mode{background:rgba(179,69,69,.95);box-shadow:0 4px 20px rgba(179,69,69,.3)}.custom-popup:before{background-repeat:no-repeat;background-size:contain;content:"";height:20px;left:16px;opacity:.8;position:absolute;top:16px;transform:translate(var(--icon-offset-x,0),var(--icon-offset-y,0));width:20px}.custom-popup.popup-info:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 15h-2v-6h2zm0-8h-2V7h2z'/%3E%3C/svg%3E")}.custom-popup.popup-success:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")}.custom-popup.popup-warn:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M1 21h22L12 2zm12-3h-2v-2h2zm0-4h-2v-4h2z'/%3E%3C/svg%3E")}.custom-popup.popup-error:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12z'/%3E%3C/svg%3E")}.custom-popup.popup-debug:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M20 8h-2.81a6 6 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5s-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20zm-6 8h-4v-2h4zm0-4h-4v-2h4z'/%3E%3C/svg%3E")}.custom-popup.show{opacity:1;transform:scale(1) translateY(0)}.custom-popup .popup-title{color:#fff;font-size:16px;font-weight:600;line-height:1.4;padding-left:32px;padding-right:16px}.custom-popup .popup-title+.popup-content{margin-top:10px}.custom-popup .popup-content{color:hsla(0,0%,100%,.9);font-size:14px;line-height:1.5;margin-top:4px;padding-left:32px}.custom-popup .popup-close{border-radius:12px;color:hsla(0,0%,100%,.6);cursor:pointer;font-size:20px;height:24px;line-height:24px;position:absolute;right:12px;text-align:center;top:12px;transition:all .2s;width:24px}.custom-popup .popup-close:hover{background:hsla(0,0%,100%,.1);color:#fff}.custom-popup .popup-progress{background:hsla(0,0%,100%,.3);border-radius:0 0 12px 12px;bottom:0;height:3px;left:0;position:absolute;transform:translateX(0);transform-origin:left center;width:100%;will-change:transform}.custom-popup .popup-progress:after{background:linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,.5) 50%,hsla(0,0%,100%,0));content:"";height:100%;left:0;position:absolute;top:0;width:100%}
 /* End Slot Inventory Styles */</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "000-popup.js" */
 (() => {
     'use strict';
@@ -357,158 +357,276 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 (() => {
     'use strict';
 
+    class ItemCategory {
+        static #categories = new Map();
+        static #subCategories = new Map();
+        static #initialized = false;
 
-    const AllCategories = Object.freeze([
-        'consumable', 
-        'material', 
-        'equipment', 
-        'misc', 
-        'weapon', 
-        'armor', 
-        'accessory', 
-        'potion', 
-        'scroll', 
-        'food', 
-        'quest', 
-        'ore', 
-        'herb',
-        'wood', 
-        'hide', 
-        'bone', 
-        'gem', 
-        'metal', 
-        'cloth'
-    ]);
+        static init() {
+            if (this.#initialized) return;
 
-    function category(cat) {
-        if (typeof cat !== 'string') {
-            throw new TypeError('Category must be a string');
-        }
-        
-        const subLower = cat.toLowerCase();
-        
-        if(['weapon', 'armor', 'accessory'].includes(subLower)) {
-            return ['equipment', subLower];
-        }
-        
-        if(['potion', 'scroll', 'food'].includes(subLower)) {
-            return ['consumable', subLower];
-        }
-        
-        if(['ore', 'herb', 'wood', 'hide', 'bone', 'gem', 'metal', 'cloth', 'quest'].includes(subLower)) {
-            return ['material', subLower];
-        }
-        
-        if(['equipment', 'consumable', 'material', 'misc'].includes(subLower)) {
-            return [subLower, 'other'];
+            this.addMain('equipment', '装备', 100);
+            this.addSub('equipment', 'weapon', '武器', 110);
+            this.addSub('equipment', 'armor', '护甲', 120);
+            this.addSub('equipment', 'accessory', '饰品', 130);
+
+            this.addMain('consumable', '消耗品', 200);
+            this.addSub('consumable', 'potion', '药水', 210);
+            this.addSub('consumable', 'scroll', '卷轴', 220);
+            this.addSub('consumable', 'food', '食物', 230);
+
+            this.addMain('material', '材料', 300);
+            this.addSub('material', 'quest', '任务材料', 310);
+            this.addSub('material', 'ore', '矿石', 320);
+            this.addSub('material', 'herb', '草药', 330);
+            this.addSub('material', 'wood', '木材', 340);
+            this.addSub('material', 'hide', '兽皮', 350);
+            this.addSub('material', 'bone', '骨头', 360);
+            this.addSub('material', 'gem', '宝石', 370);
+            this.addSub('material', 'metal', '金属', 380);
+            this.addSub('material', 'cloth', '布料', 390);
+
+            this.addMain('misc', '其他', 900);
+            this.addSub('misc', 'quest', '任务物品', 910);
+
+            this.#initialized = true;
         }
 
-        throw new Error(`Unknown item type: ${subcategory}`);
-    }
-
-    const ItemCategory = Object.freeze({
-        EQUIPMENT: 'equipment',
-        CONSUMABLE: 'consumable',
-        MATERIAL: 'material',
-        MISC: 'misc'
-    });
-    
-    const ItemSubCategory = Object.freeze({
-        // 装备子类
-        WEAPON: 'weapon',
-        ARMOR: 'armor',
-        ACCESSORY: 'accessory',
-        
-        // 消耗品子类
-        POTION: 'potion',
-        SCROLL: 'scroll',
-        FOOD: 'food',
-        
-        // 材料子类
-        QUEST: 'quest',
-        ORE: 'ore',
-        HERB: 'herb',
-        WOOD: 'wood',
-        HIDE: 'hide',
-        BONE: 'bone',
-        GEM: 'gem',
-        METAL: 'metal',
-        CLOTH: 'cloth',
-        
-        // 通用子类
-        OTHER: 'other'
-    });
-    
-    const CategorySubcategoryMap = Object.freeze({
-        [ItemCategory.EQUIPMENT]: [
-            ItemSubCategory.WEAPON,
-            ItemSubCategory.ARMOR,
-            ItemSubCategory.ACCESSORY,
-            ItemSubCategory.OTHER
-        ],
-        [ItemCategory.CONSUMABLE]: [
-            ItemSubCategory.POTION,
-            ItemSubCategory.SCROLL,
-            ItemSubCategory.FOOD,
-            ItemSubCategory.OTHER
-        ],
-        [ItemCategory.MATERIAL]: [
-            ItemSubCategory.QUEST,
-            ItemSubCategory.ORE,
-            ItemSubCategory.HERB,
-            ItemSubCategory.WOOD,
-            ItemSubCategory.HIDE,
-            ItemSubCategory.BONE,
-            ItemSubCategory.GEM,
-            ItemSubCategory.METAL,
-            ItemSubCategory.CLOTH,
-            ItemSubCategory.OTHER
-        ],
-        [ItemCategory.MISC]: [
-            ItemSubCategory.QUEST,
-            ItemSubCategory.OTHER
-        ]
-    });
-
-    function validateCategory(cat, sub = null) {
-        if (typeof cat !== 'string') {
-            return false;
-        }
-        
-        const category = cat.toUpperCase();
-        if (!ItemCategory[category]) {
-            return false;
+        static {
+            this.init();
         }
 
-        if (sub === null) {
+        /**
+         * 添加主分类
+         * @param {string} id - 分类ID
+         * @param {string} name - 分类名称
+         * @param {number} order - 排序顺序
+         * @returns {boolean} - 是否添加成功
+         * @throws {TypeError} - 参数类型错误时抛出
+         */
+        static addMain(id, name, order) {
+            if (typeof id !== 'string' || typeof name !== 'string' || typeof order !== 'number') {
+                throw new TypeError('Invalid parameter types for addMain');
+            }
+
+            id = id.toLowerCase();
+            if (this.#categories.has(id)) {
+                console.warn(`主分类 ${id} 已存在`);
+                return false;
+            }
+
+            this.#categories.set(id, {
+                id,
+                name,
+                order,
+                subCategories: new Map()
+            });
+            
+            this.addSub(id, 'other', `其他${name}`, order + 99);
+            
             return true;
         }
 
-        if (typeof sub !== 'string') {
-            return false;
+        /**
+         * 添加子分类
+         * @param {string} mainId - 主分类ID
+         * @param {string} subId - 子分类ID
+         * @param {string} name - 子分类名称
+         * @param {number} order - 排序顺序
+         * @returns {boolean} - 是否添加成功
+         * @throws {TypeError} - 参数类型错误时抛出
+         */
+        static addSub(mainId, subId, name, order) {
+            if (typeof mainId !== 'string' || typeof subId !== 'string' || 
+                typeof name !== 'string' || typeof order !== 'number') {
+                throw new TypeError('Invalid parameter types for addSub');
+            }
+
+            mainId = mainId.toLowerCase();
+            subId = subId.toLowerCase();
+            
+            const mainCategory = this.#categories.get(mainId);
+            if (!mainCategory) {
+                console.warn(`主分类 ${mainId} 不存在`);
+                return false;
+            }
+
+            const fullId = `${mainId}.${subId}`;
+            if (this.#subCategories.has(fullId)) {
+                console.warn(`子分类 ${fullId} 已存在`);
+                return false;
+            }
+            
+            const subCategory = {
+                id: subId,
+                fullId,
+                name,
+                order,
+                mainCategory: mainId
+            };
+
+            mainCategory.subCategories.set(subId, subCategory);
+            this.#subCategories.set(fullId, subCategory);
+            return true;
         }
 
-        return CategorySubcategoryMap[ItemCategory[category]].includes(sub);
+        /**
+         * 获取主分类
+         * @param {string} id - 分类ID
+         * @returns {object|null} - 分类信息
+         */
+        static getMain(id) {
+            if (typeof id !== 'string') return null;
+            return this.#categories.get(id.toLowerCase()) || null;
+        }
+
+        /**
+         * 获取子分类
+         * @param {string} mainId - 主分类ID
+         * @param {string} subId - 子分类ID
+         * @returns {object|null} - 子分类信息
+         */
+        static getSub(mainId, subId) {
+            if (typeof mainId !== 'string' || typeof subId !== 'string') return null;
+            return this.#subCategories.get(`${mainId.toLowerCase()}.${subId.toLowerCase()}`) || null;
+        }
+
+        /**
+         * 根据子分类ID获取主分类
+         * @param {string} fullId - 完整的分类ID (mainId.subId)
+         * @returns {object|null} - 主分类信息
+         */
+        static getMainBySubId(fullId) {
+            const sub = this.#subCategories.get(fullId.toLowerCase());
+            if (!sub) return null;
+            return this.getMain(sub.mainCategory);
+        }
+
+        /**
+         * 获取分类的排序顺序
+         * @param {string} fullId - 完整的分类ID (mainId.subId)
+         * @returns {number} - 排序顺序，如果不存在返回 Infinity
+         */
+        static getOrder(fullId) {
+            const sub = this.#subCategories.get(fullId.toLowerCase());
+            return sub ? sub.order : Infinity;
+        }
+
+        /**
+         * 获取所有主分类
+         * @returns {Map} - 主分类Map
+         */
+        static getAllMain() {
+            return new Map(this.#categories);
+        }
+
+        /**
+         * 获取指定主分类的所有子分类
+         * @param {string} mainId - 主分类ID
+         * @returns {Map} - 子分类Map
+         */
+        static getSubs(mainId) {
+            const main = this.getMain(mainId);
+            return main ? main.subCategories : new Map();
+        }
+
+        /**
+         * 检查分类是否存在
+         * @param {string} fullId - 完整的分类ID (mainId.subId)
+         * @returns {boolean} - 是否存在
+         */
+        static exists(fullId) {
+            return this.#subCategories.has(fullId.toLowerCase());
+        }
+
+        /**
+         * 验证分类是否有效
+         * @param {string} mainId - 主分类ID
+         * @param {string|null} subId - 子分类ID，可选
+         * @returns {boolean} - 是否有效
+         */
+        static validate(mainId, subId = null) {
+            if (typeof mainId !== 'string') return false;
+            
+            const main = this.getMain(mainId);
+            if (!main) return false;
+            
+            if (subId === null) return true;
+            
+            if (typeof subId !== 'string') return false;
+            return this.getSub(mainId, subId) !== null;
+        }
+
+        /**
+         * 获取分类信息
+         * @param {string} cat - 分类标识符
+         * @returns {[string, string]} - [主分类, 子分类]
+         * @throws {Error} - 如果分类无效
+         */
+        static category(cat) {
+            if (typeof cat !== 'string') {
+                throw new TypeError('分类必须是字符串类型');
+            }
+
+            cat = cat.toLowerCase();
+
+            if (this.getMain(cat)) {
+                return [cat, 'other'];
+            }
+
+            for (const [mainId, mainCat] of this.#categories) {
+                if (mainCat.subCategories.has(cat)) {
+                    return [mainId, cat];
+                }
+            }
+
+            throw new Error(`未知的物品类型: ${cat}`);
+        }
+
+        /**
+         * 获取所有分类ID列表
+         * @returns {string[]} - 分类ID列表
+         */
+        static getAllCategories() {
+            const idCount = new Map();
+            
+            for (const mainId of this.#categories.keys()) {
+                idCount.set(mainId, (idCount.get(mainId) || 0) + 1);
+                
+                const subs = this.getSubs(mainId);
+                for (const subId of subs.keys()) {
+                    if (subId !== 'other') {
+                        idCount.set(subId, (idCount.get(subId) || 0) + 1);
+                    }
+                }
+            }
+            
+            const categories = [];
+            for (const [id, count] of idCount) {
+                if (count === 1) {
+                    categories.push(id);
+                }
+            }
+            
+            return Object.freeze(categories);
+        }
     }
 
-    setup.category = category;
     setup.ItemCategory = ItemCategory;
-    setup.ItemSubCategory = ItemSubCategory;
-    setup.CategorySubcategoryMap = CategorySubcategoryMap;
-    setup.validateCategory = validateCategory;
-    setup.AllCategories = AllCategories;
-
-    window.category = window.category || category;
     window.ItemCategory = window.ItemCategory || ItemCategory;
-    window.ItemSubCategory = window.ItemSubCategory || ItemSubCategory;
-    window.CategorySubcategoryMap = window.CategorySubcategoryMap || CategorySubcategoryMap;
-    window.validateCategory = window.validateCategory || validateCategory;
-    window.AllCategories = window.AllCategories || AllCategories;
+    
+    setup.category = cat => ItemCategory.category(cat);
+    setup.validateCategory = (main, sub) => ItemCategory.validate(main, sub);
+    setup.AllCategories = ItemCategory.getAllCategories();
+    
+    window.category = window.category || setup.category;
+    window.validateCategory = window.validateCategory || setup.validateCategory;
+    window.AllCategories = window.AllCategories || setup.AllCategories;
 })();
 /* twine-user-script #3: "002-item.js" */
 (() => {
     'use strict';
-    debugger;
+
     const defaultOpts = {
         url: '',
         description : '',      // 检查物品时在模态框中显示的描述文本
@@ -519,65 +637,13 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
         stackable: false,      // 是否可堆叠
         durability: 0,         // 最大耐久度,0表示无耐久度
         cat: 'misc',           // 物品分类
-        sub: 'other',       // 物品子分类
-        order: 0,              // 物品排序权重
+        sub: 'other',         // 物品子分类
+        order: 0,             // 物品排序权重
     };
-
-    const Categories = Object.freeze({
-        // 装备
-        equipment: {
-            name: 'equipment',
-            order: 100,
-            sub: {
-                weapon: 110,     // 武器
-                armor: 120,      // 护甲
-                accessory: 130,  // 饰品
-                other: 140,      // 其他
-            }
-        },
-        // 消耗品
-        consumable: {
-            name: 'consumable',
-            order: 200,
-            sub: {
-                potion: 210,     // 药水
-                scroll: 220,     // 卷轴
-                food: 230,       // 食物
-                other: 240,      // 其他
-            }
-        },
-        // 材料
-        material: {
-            name: 'material',
-            order: 300,
-            sub: {
-                quest: 310,      // 任务物品
-                ore: 320,        // 矿石
-                herb: 330,       // 草药
-                wood: 340,       // 木材
-                hide: 350,       // 兽皮
-                bone: 360,       // 骨头
-                gem: 370,        // 宝石
-                metal: 380,      // 金属
-                cloth: 390,      // 布料
-                other: 400,      // 其他
-            }
-        },
-        // 其他
-        misc: {
-            name: 'misc',
-            order: 900,
-            sub: {
-                quest: 910,      // 任务物品
-                other: 920,      // 其他
-            }
-        }
-    });
 
     const ItemList = new Map();
 
     class Item {
-
         static DefaultItem = new Item('Other', {
             cat: 'misc',
             sub: 'other',
@@ -597,12 +663,13 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
             Object.assign(this, Object.assign({}, defaultOpts, opts));
 
-            if (!validateCategory(this.cat, this.sub)) {
-                throw new Error('Invalid item category: ' + this.cat);
-            }
-
+            // 验证并规范化分类
             this.cat = this.cat.toLowerCase();
             this.sub = this.sub.toLowerCase();
+            
+            if (!ItemCategory.validate(this.cat, this.sub)) {
+                throw new Error(`Invalid item category: ${this.cat}.${this.sub}`);
+            }
 
             this.id = id;
             this._tags = tags instanceof Array ? tags : 
@@ -682,22 +749,20 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
                 return 0;
             }
 
-            const catA = Categories[this.cat]?.order || 999;
-            const catB = Categories[other.cat]?.order || 999;
-            if (catA !== catB) {
-                return catA - catB;
+            // 获取分类排序顺序
+            const catOrderA = ItemCategory.getOrder(`${this.cat}.${this.sub}`);
+            const catOrderB = ItemCategory.getOrder(`${other.cat}.${other.sub}`);
+
+            if (catOrderA !== catOrderB) {
+                return catOrderA - catOrderB;
             }
 
-            const subA = Categories[this.cat]?.sub[this.subcat] || 999;
-            const subB = Categories[other.cat]?.sub[other.subcat] || 999;
-            if (subA !== subB) {
-                return subA - subB;
-            }
-
+            // 如果分类顺序相同，使用物品自身的order
             if (this.order !== other.order) {
                 return this.order - other.order;
             }
 
+            // 最后按名称排序
             return (this.displayName || this.id).localeCompare(other.displayName || other.id);
         }
 
@@ -1590,68 +1655,71 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 (() => {
     'use strict';
 
+    const DURABILITY_THRESHOLDS = {
+        90: 'perfect',
+        70: 'high',
+        50: 'good',
+        30: 'medium',
+        10: 'poor',
+        0: 'low'
+    };
+
+    function getDurabilityClass(percent) {
+        for (const [threshold, className] of Object.entries(DURABILITY_THRESHOLDS)) {
+            if (percent > threshold) {
+                return className;
+            }
+        }
+        return DURABILITY_THRESHOLDS[0];
+    }
+
     function generateSlotHtml(slot, idx) {
+        const slotNumber = idx + 1;
+        const $slot = $('<div>')
+            .addClass('inv-slot')
+            .attr('data-slot', slotNumber);
+
         if (!slot) {
-            return $('<div>')
-                .addClass('inv-slot empty')
-                .attr('data-slot', idx + 1);
+            return $slot.addClass('empty');
         }
 
         const item = Item.get(slot.id);
         const itemName = item?.displayName || slot.id;
-        const itemClass = item ? `item-${item.cat.toLowerCase()}` : '';
         
-        const $slot = $('<div>')
-            .addClass(`inv-slot ${itemClass}`)
-            .attr('data-slot', idx + 1)
-            .attr('data-id', slot.id);
-        
-        if (item && item.url.trim() !== '') {
+        // 使用完整的分类ID作为CSS类
+        const categoryClass = item ? `item-${item.cat}-${item.sub}` : '';
+        $slot
+            .addClass(categoryClass)
+            .attr('data-id', slot.id)
+            .attr('data-category', `${item?.cat || 'misc'}.${item?.sub || 'other'}`);
+
+        // Add item image or name
+        if (item?.url?.trim()) {
             $slot.addClass('slot-img')
-                .append(
-                    $('<img>')
-                        .attr('src', item.url)
-                )
+                .append($('<img>').attr('src', item.url));
         } else {
             $('<div>')
-            .addClass('item-name')
-            .text(itemName)
-            .appendTo($slot);
+                .addClass('item-name')
+                .text(itemName)
+                .appendTo($slot);
         }
 
-       
-        
+        // Add durability or count
         if (slot.durability) {
+            const durabilityPercent = Math.round((slot.durability / item.durability) * 100);
+            const durabilityClass = getDurabilityClass(durabilityPercent);
+            
             const $durabilityContainer = $('<div>')
                 .addClass('item-durability-container')
+                .append(
+                    $('<div>')
+                        .addClass(`item-durability-bar ${durabilityClass}`)
+                        .css('width', `${durabilityPercent}%`),
+                    $('<div>')
+                        .addClass('item-durability-text')
+                        .text(`${slot.durability}/${item.durability}`)
+                )
                 .appendTo($slot);
-            
-            const durabilityPercent = Math.round(slot.durability / item.durability * 100);
-            
-            let durabilityClass = '';
-            if (durabilityPercent > 90) {
-                durabilityClass = 'perfect';
-            } else if (durabilityPercent > 70) {
-                durabilityClass = 'high';
-            } else if (durabilityPercent > 50) {
-                durabilityClass = 'good';
-            } else if (durabilityPercent > 30) {
-                durabilityClass = 'medium';
-            } else if (durabilityPercent > 10) {
-                durabilityClass = 'poor';
-            } else {
-                durabilityClass = 'low';
-            }
-            
-            $('<div>')
-                .addClass(`item-durability-bar ${durabilityClass}`)
-                .css('width', `${durabilityPercent}%`)
-                .appendTo($durabilityContainer);
-                
-            $('<div>')
-                .addClass('item-durability-text')
-                .text(`${slot.durability}/${item.durability}`)
-                .appendTo($durabilityContainer);
         } else {
             $('<div>')
                 .addClass('item-count')
@@ -1663,55 +1731,83 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     }
 
     function generateInventoryHtml(inv) {
-        const $grid = $('<div>')
-            .addClass('inventory-grid');
-        
-        inv.slots.forEach((slot, idx) => {
-            $grid.append(generateSlotHtml(slot, idx));
-        });
-        
+        const $container = $('<div>').addClass('inventory-container');
         const $controls = $('<div>').addClass('inventory-controls');
-
-        const $search = $('<input>')
-            .addClass('inv-search')
-            .attr('type', 'text')
-            .attr('placeholder', '搜索物品...');
-        
         const $buttons = $('<div>').addClass('inv-buttons');
         
-        const $sort = $('<button>')
-            .addClass('inv-sort')
-            .text('排序');
+        // Create search input
+        const $search = $('<input>', {
+            class: 'inv-search',
+            type: 'text',
+            placeholder: '搜索物品...'
+        });
+
+        // Create control buttons
+        const $sort = $('<button>', {
+            class: 'inv-sort',
+            text: '排序'
+        });
         
-        const $regexToggle = $('<button>')
-            .addClass('inv-regex-toggle')
-            .text('正则搜索: 关');
-        
+        const $regexToggle = $('<button>', {
+            class: 'inv-regex-toggle',
+            text: '正则搜索: 关'
+        });
+
+        // 使用ItemCategory获取所有主分类
         const $filter = $('<select>').addClass('inv-filter');
+        $('<option>', { value: 'all', text: '全部' }).appendTo($filter);
         
-        $filter
-            .append($('<option>').val('all').text('全部'))
-            .append($('<option>').val('equipment').text('装备'))
-            .append($('<option>').val('consumable').text('消耗品'))
-            .append($('<option>').val('material').text('材料'))
-            .append($('<option>').val('misc').text('其他'));
-        
+        // 添加所有主分类作为过滤选项
+        const mainCategories = ItemCategory.getAllMain();
+        for (const [id, category] of mainCategories) {
+            $('<option>', { 
+                value: id, 
+                text: category.name 
+            }).appendTo($filter);
+        }
+
+        // Create inventory grid
+        const $grid = $('<div>')
+            .addClass('inventory-grid')
+            .append(inv.slots.map((slot, idx) => generateSlotHtml(slot, idx)));
+
+        // Assemble the components
         $buttons
             .append($sort)
             .append($regexToggle)
             .append($filter);
-        
+
         $controls
             .append($search)
             .append($buttons);
-        
-        const $container = $('<div>').addClass('inventory-container');
-        
-        $container
+
+        return $container
             .append($controls)
             .append($grid);
+    }
+
+    /**
+     * 生成装备栏视图的HTML
+     * @param {Inventory} inv - 装备栏容器
+     * @returns {jQuery} 装备栏HTML元素
+     */
+    function equipmentView(inv) {
+        const $container = $('<div>').addClass('equipment-container');
         
-        return $container;
+        // 创建装备栏标题
+        const $title = $('<div>')
+            .addClass('equipment-title')
+            .text('装备栏');
+        
+        // 创建装备格子网格
+        const $grid = $('<div>')
+            .addClass('equipment-grid')
+            .append(inv.slots.map((slot, idx) => generateSlotHtml(slot, idx)));
+        
+        // 组装组件
+        return $container
+            .append($title)
+            .append($grid);
     }
 
     function createContextMenu(inv, slot, x, y) {
@@ -1729,13 +1825,11 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
                 zIndex: 200200
             });
 
-        
         const $use = $('<div>')
             .addClass('menu-item')
             .text('使用');
         
         let hasSeparator = false;
-        debugger;
         if (item && (typeof item.handler === 'function' || (typeof item.handler === 'string' && item.handler.trim() !== ''))) {
             $use.on('touchstart click', (e) => {
                 e.preventDefault();
@@ -1891,11 +1985,22 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     }
 
     function handleUseItem(inv, idx, $container) {
-        const result = inv.use(idx);
-        if (!result.success) {
-            Popup.error('使用失败', result.message);
+        try {
+            const slot = inv.slots[idx];
+            if (!slot) return;
+
+            const item = Item.get(slot.id);
+            if (!item) return;
+
+            const handler = item.handler;
+            if (typeof handler === 'function') {
+                handler(inv, idx);
+            } else if (typeof handler === 'string' && handler.trim()) {
+                new Function('inv', 'idx', handler)(inv, idx);
+            }
+        } catch (error) {
+            console.error('Error handling item use:', error);
         }
-        inv.render($container[0]);
     }
 
     function handleItemClick(inv, slotIdx, e) {
@@ -1972,7 +2077,6 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
         }
     }
 
-
     function transferView(output, inv1, inv2, type, swapped = false) {
         if (type === 'take' && !swapped) {
             const tmp = inv1;
@@ -1986,7 +2090,6 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
         inv1.iterate((idx, slot, _) => {
             if (!slot) return;
-
 
             let $item;
             const item = Item.get(slot.id);
@@ -2011,7 +2114,6 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
                     .addClass('item-action-link')
                     .text(type === 'give' ? '给予':'取走')
                     .on('click', function() {
-                        debugger
                         const slot = parseInt($(this).closest('li').data('slot'));
                         const result = inv1.transfer(inv2, slot - 1);
                         if (!result.success) {
@@ -2046,7 +2148,6 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
                                 }
                             }
                         });
-                        debugger;
                         inv1.render($(".inventory-transfer-container").parent()[0], inv2, type, swapped);
                     }))
                 .append($('<span>').addClass('spacer'));
@@ -2057,6 +2158,11 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     }
 
     function defaultView(output, inv) {
+        // 如果是装备栏容器，使用装备栏视图
+        if (inv.containerType === 'equipment') {
+            return equipmentView(inv);
+        }
+
         const $existingContainer = $('.inventory-container');
         
         let searchText = $existingContainer.find('.inv-search').val() || '';
@@ -2081,16 +2187,14 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
             $container.find('.inv-slot').each(function() {
                 const $slot = $(this);
                 const itemName = $slot.find('.item-name').text().toLowerCase();
-                const idx = $slot.attr('data-slot');
-                const slot = inv.slots[idx - 1];
+                const itemCategory = $slot.attr('data-category') || 'misc.other';
+                const [mainCat] = itemCategory.split('.');
                 
                 let passesFilter = false;
                 if (selectedFilter === 'all') {
                     passesFilter = true;
-                } else if (slot) {
-                    const item = Item.get(slot.id);
-                    const cat = item?.cat?.toLowerCase() ?? 'misc';
-                    passesFilter = (cat === selectedFilter);
+                } else {
+                    passesFilter = (mainCat === selectedFilter);
                 }
                 
                 let passesSearch = false;
@@ -2209,7 +2313,6 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
         
         $(output).empty().append($container);
     }
-    
 
     Inventory.prototype.render = function (output, inv2 = null, type = 'give', swapped = false) {
         const inv1 = this;
@@ -2220,7 +2323,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
             defaultView(output, inv1);
         }
     }
-})(); 
+})();
 /* twine-user-script #6: "005-macro.js" */
 (() => {
     function isValidVariable(varName) {
@@ -2423,8 +2526,8 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
         }
     });
 
-    Macro.add(AllCategories, {
-        tags: ['description', 'tags', 'durability', 'unstackable', 'permanent', 'unique', 'url'],
+    Macro.add(['item', ...AllCategories], {
+        tags: ['description', 'tags', 'durability', 'unstackable', 'permanent', 'unique', 'url', 'category'],
         handler() {
             if (this.args.length < 1) {
                 return this.error('Not enough arguments provided. At least one argument is required');
@@ -2433,7 +2536,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
             const id = this.args[0];
             const name = this.args[1] ?? id;
 
-            let tags, durability = 0, url = '', description = '', handler = null, unstackable = false, permanent = false, unique = false;
+            let tags, icategory = [], durability = 0, url = '', description = '', handler = null, unstackable = false, permanent = false, unique = false;
 
             handler = this.payload[0].contents.trim();
 
@@ -2461,15 +2564,30 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
                         case 'url':
                             url = pl.args.raw;
                             break;
+                        case 'category':
+                            icategory = pl.args;
+                            break;
                     }
                 }
             }
+            let cat, sub;
 
-            const [cat, sub] = category(this.name);
+            if (this.name === 'item') {
+                if (icategory.length === 0) {
+                    icategory.push('misc');
+                }
+                if (icategory.length === 1) {
+                    icategory.push('other');
+                }
+                [cat, sub] = icategory;
+            } else {
+                [cat, sub] = category(this.name);
+            }            
+         
             Item.add(id, {
                 displayName: name,
                 description,
-                stackable: !unstackable,
+                stackable: !unstackable && durability === 0,
                 durability,
                 handler,
                 permanent,
@@ -2480,6 +2598,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
             }, tags);
         }
     });
+
 
 
 })();
@@ -3097,7 +3216,8 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
     setup.Recipe = Recipe;
     window.Recipe = window.Recipe || Recipe;
-})();</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;set $hp = 100&gt;&gt;
+})();</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;set Popup.darkMode = false&gt;&gt;
+&lt;&lt;set $hp = 100&gt;&gt;
 &lt;&lt;newinv $inv1 20 64&gt;&gt;
 &lt;&lt;newinv $inv2 10 30&gt;&gt;
 &lt;&lt;store $inv1 &#39;诅咒木&#39; 2&gt;&gt;
@@ -3124,7 +3244,8 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 生命值: $hp
 &lt;&lt;/do&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="StoryMenu" tags="" position="350,100" size="100,100">&lt;&lt;link 背包&gt;&gt;
     &lt;&lt;run Dialog.create(&#39;背包&#39;).wiki(&#39;&lt;&lt;inv $inv1&gt;&gt;&#39;).open()&gt;&gt;
-&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Start" tags="" position="475,100" size="100,100">[[物品获取]]
+&lt;&lt;/link&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Start" tags="" position="475,100" size="100,100">&lt;&lt;run Popup.success(&#39;欢迎&#39;, &#39;欢迎来到Inventory示例&#39;)&gt;&gt;  
+[[物品获取]]
 [[物品给予]]
 [[背包页面]]
 [[物品使用]]
@@ -3273,15 +3394,25 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 木剑，木制的剑，非常脆弱。
 &lt;&lt;/weapon&gt;&gt;
 
+&lt;&lt;item &#39;iron_sword&#39; &#39;铁剑&#39;&gt;&gt;
+&lt;&lt;durability 100&gt;&gt;
+&lt;&lt;category equipment weapon&gt;&gt;
+&lt;&lt;description&gt;&gt;
+普通的铁剑，比较耐用。
+&lt;&lt;/item&gt;&gt;
+
 &lt;&lt;script&gt;&gt;
-Item.add(&#39;iron_sword&#39;, {
-    displayName: &#39;铁剑&#39;,
-    description: &#39;普通的铁剑，比较耐用。&#39;,
-    cat: &#39;equipment&#39;,
-    sub: &#39;weapon&#39;,
-    stackable: false,
-    durability: 100
-});
+// Item.add(&#39;iron_sword&#39;, {
+//     displayName: &#39;铁剑&#39;,
+//     description: &#39;普通的铁剑，比较耐用。&#39;,
+//     cat: &#39;equipment&#39;,
+//     sub: &#39;weapon&#39;,
+//     stackable: false,
+//     durability: 100,
+//     handler: () =&gt; {
+        
+//     }
+// });
 
 Item.add(&#39;steel_sword&#39;, {
     displayName: &#39;钢剑&#39;,

@@ -1,68 +1,71 @@
 (() => {
     'use strict';
 
+    const DURABILITY_THRESHOLDS = {
+        90: 'perfect',
+        70: 'high',
+        50: 'good',
+        30: 'medium',
+        10: 'poor',
+        0: 'low'
+    };
+
+    function getDurabilityClass(percent) {
+        for (const [threshold, className] of Object.entries(DURABILITY_THRESHOLDS)) {
+            if (percent > threshold) {
+                return className;
+            }
+        }
+        return DURABILITY_THRESHOLDS[0];
+    }
+
     function generateSlotHtml(slot, idx) {
+        const slotNumber = idx + 1;
+        const $slot = $('<div>')
+            .addClass('inv-slot')
+            .attr('data-slot', slotNumber);
+
         if (!slot) {
-            return $('<div>')
-                .addClass('inv-slot empty')
-                .attr('data-slot', idx + 1);
+            return $slot.addClass('empty');
         }
 
         const item = Item.get(slot.id);
         const itemName = item?.displayName || slot.id;
-        const itemClass = item ? `item-${item.cat.toLowerCase()}` : '';
         
-        const $slot = $('<div>')
-            .addClass(`inv-slot ${itemClass}`)
-            .attr('data-slot', idx + 1)
-            .attr('data-id', slot.id);
-        
-        if (item && item.url.trim() !== '') {
+        // 使用完整的分类ID作为CSS类
+        const categoryClass = item ? `item-${item.cat}-${item.sub}` : '';
+        $slot
+            .addClass(categoryClass)
+            .attr('data-id', slot.id)
+            .attr('data-category', `${item?.cat || 'misc'}.${item?.sub || 'other'}`);
+
+        // Add item image or name
+        if (item?.url?.trim()) {
             $slot.addClass('slot-img')
-                .append(
-                    $('<img>')
-                        .attr('src', item.url)
-                )
+                .append($('<img>').attr('src', item.url));
         } else {
             $('<div>')
-            .addClass('item-name')
-            .text(itemName)
-            .appendTo($slot);
+                .addClass('item-name')
+                .text(itemName)
+                .appendTo($slot);
         }
 
-       
-        
+        // Add durability or count
         if (slot.durability) {
+            const durabilityPercent = Math.round((slot.durability / item.durability) * 100);
+            const durabilityClass = getDurabilityClass(durabilityPercent);
+            
             const $durabilityContainer = $('<div>')
                 .addClass('item-durability-container')
+                .append(
+                    $('<div>')
+                        .addClass(`item-durability-bar ${durabilityClass}`)
+                        .css('width', `${durabilityPercent}%`),
+                    $('<div>')
+                        .addClass('item-durability-text')
+                        .text(`${slot.durability}/${item.durability}`)
+                )
                 .appendTo($slot);
-            
-            const durabilityPercent = Math.round(slot.durability / item.durability * 100);
-            
-            let durabilityClass = '';
-            if (durabilityPercent > 90) {
-                durabilityClass = 'perfect';
-            } else if (durabilityPercent > 70) {
-                durabilityClass = 'high';
-            } else if (durabilityPercent > 50) {
-                durabilityClass = 'good';
-            } else if (durabilityPercent > 30) {
-                durabilityClass = 'medium';
-            } else if (durabilityPercent > 10) {
-                durabilityClass = 'poor';
-            } else {
-                durabilityClass = 'low';
-            }
-            
-            $('<div>')
-                .addClass(`item-durability-bar ${durabilityClass}`)
-                .css('width', `${durabilityPercent}%`)
-                .appendTo($durabilityContainer);
-                
-            $('<div>')
-                .addClass('item-durability-text')
-                .text(`${slot.durability}/${item.durability}`)
-                .appendTo($durabilityContainer);
         } else {
             $('<div>')
                 .addClass('item-count')
@@ -74,55 +77,83 @@
     }
 
     function generateInventoryHtml(inv) {
-        const $grid = $('<div>')
-            .addClass('inventory-grid');
-        
-        inv.slots.forEach((slot, idx) => {
-            $grid.append(generateSlotHtml(slot, idx));
-        });
-        
+        const $container = $('<div>').addClass('inventory-container');
         const $controls = $('<div>').addClass('inventory-controls');
-
-        const $search = $('<input>')
-            .addClass('inv-search')
-            .attr('type', 'text')
-            .attr('placeholder', '搜索物品...');
-        
         const $buttons = $('<div>').addClass('inv-buttons');
         
-        const $sort = $('<button>')
-            .addClass('inv-sort')
-            .text('排序');
+        // Create search input
+        const $search = $('<input>', {
+            class: 'inv-search',
+            type: 'text',
+            placeholder: '搜索物品...'
+        });
+
+        // Create control buttons
+        const $sort = $('<button>', {
+            class: 'inv-sort',
+            text: '排序'
+        });
         
-        const $regexToggle = $('<button>')
-            .addClass('inv-regex-toggle')
-            .text('正则搜索: 关');
-        
+        const $regexToggle = $('<button>', {
+            class: 'inv-regex-toggle',
+            text: '正则搜索: 关'
+        });
+
+        // 使用ItemCategory获取所有主分类
         const $filter = $('<select>').addClass('inv-filter');
+        $('<option>', { value: 'all', text: '全部' }).appendTo($filter);
         
-        $filter
-            .append($('<option>').val('all').text('全部'))
-            .append($('<option>').val('equipment').text('装备'))
-            .append($('<option>').val('consumable').text('消耗品'))
-            .append($('<option>').val('material').text('材料'))
-            .append($('<option>').val('misc').text('其他'));
-        
+        // 添加所有主分类作为过滤选项
+        const mainCategories = ItemCategory.getAllMain();
+        for (const [id, category] of mainCategories) {
+            $('<option>', { 
+                value: id, 
+                text: category.name 
+            }).appendTo($filter);
+        }
+
+        // Create inventory grid
+        const $grid = $('<div>')
+            .addClass('inventory-grid')
+            .append(inv.slots.map((slot, idx) => generateSlotHtml(slot, idx)));
+
+        // Assemble the components
         $buttons
             .append($sort)
             .append($regexToggle)
             .append($filter);
-        
+
         $controls
             .append($search)
             .append($buttons);
-        
-        const $container = $('<div>').addClass('inventory-container');
-        
-        $container
+
+        return $container
             .append($controls)
             .append($grid);
+    }
+
+    /**
+     * 生成装备栏视图的HTML
+     * @param {Inventory} inv - 装备栏容器
+     * @returns {jQuery} 装备栏HTML元素
+     */
+    function equipmentView(inv) {
+        const $container = $('<div>').addClass('equipment-container');
         
-        return $container;
+        // 创建装备栏标题
+        const $title = $('<div>')
+            .addClass('equipment-title')
+            .text('装备栏');
+        
+        // 创建装备格子网格
+        const $grid = $('<div>')
+            .addClass('equipment-grid')
+            .append(inv.slots.map((slot, idx) => generateSlotHtml(slot, idx)));
+        
+        // 组装组件
+        return $container
+            .append($title)
+            .append($grid);
     }
 
     function createContextMenu(inv, slot, x, y) {
@@ -140,13 +171,11 @@
                 zIndex: 200200
             });
 
-        
         const $use = $('<div>')
             .addClass('menu-item')
             .text('使用');
         
         let hasSeparator = false;
-        debugger;
         if (item && (typeof item.handler === 'function' || (typeof item.handler === 'string' && item.handler.trim() !== ''))) {
             $use.on('touchstart click', (e) => {
                 e.preventDefault();
@@ -302,11 +331,22 @@
     }
 
     function handleUseItem(inv, idx, $container) {
-        const result = inv.use(idx);
-        if (!result.success) {
-            Popup.error('使用失败', result.message);
+        try {
+            const slot = inv.slots[idx];
+            if (!slot) return;
+
+            const item = Item.get(slot.id);
+            if (!item) return;
+
+            const handler = item.handler;
+            if (typeof handler === 'function') {
+                handler(inv, idx);
+            } else if (typeof handler === 'string' && handler.trim()) {
+                new Function('inv', 'idx', handler)(inv, idx);
+            }
+        } catch (error) {
+            console.error('Error handling item use:', error);
         }
-        inv.render($container[0]);
     }
 
     function handleItemClick(inv, slotIdx, e) {
@@ -383,7 +423,6 @@
         }
     }
 
-
     function transferView(output, inv1, inv2, type, swapped = false) {
         if (type === 'take' && !swapped) {
             const tmp = inv1;
@@ -397,7 +436,6 @@
 
         inv1.iterate((idx, slot, _) => {
             if (!slot) return;
-
 
             let $item;
             const item = Item.get(slot.id);
@@ -422,7 +460,6 @@
                     .addClass('item-action-link')
                     .text(type === 'give' ? '给予':'取走')
                     .on('click', function() {
-                        debugger
                         const slot = parseInt($(this).closest('li').data('slot'));
                         const result = inv1.transfer(inv2, slot - 1);
                         if (!result.success) {
@@ -457,7 +494,6 @@
                                 }
                             }
                         });
-                        debugger;
                         inv1.render($(".inventory-transfer-container").parent()[0], inv2, type, swapped);
                     }))
                 .append($('<span>').addClass('spacer'));
@@ -468,6 +504,11 @@
     }
 
     function defaultView(output, inv) {
+        // 如果是装备栏容器，使用装备栏视图
+        if (inv.containerType === 'equipment') {
+            return equipmentView(inv);
+        }
+
         const $existingContainer = $('.inventory-container');
         
         let searchText = $existingContainer.find('.inv-search').val() || '';
@@ -492,16 +533,14 @@
             $container.find('.inv-slot').each(function() {
                 const $slot = $(this);
                 const itemName = $slot.find('.item-name').text().toLowerCase();
-                const idx = $slot.attr('data-slot');
-                const slot = inv.slots[idx - 1];
+                const itemCategory = $slot.attr('data-category') || 'misc.other';
+                const [mainCat] = itemCategory.split('.');
                 
                 let passesFilter = false;
                 if (selectedFilter === 'all') {
                     passesFilter = true;
-                } else if (slot) {
-                    const item = Item.get(slot.id);
-                    const cat = item?.cat?.toLowerCase() ?? 'misc';
-                    passesFilter = (cat === selectedFilter);
+                } else {
+                    passesFilter = (mainCat === selectedFilter);
                 }
                 
                 let passesSearch = false;
@@ -620,7 +659,6 @@
         
         $(output).empty().append($container);
     }
-    
 
     Inventory.prototype.render = function (output, inv2 = null, type = 'give', swapped = false) {
         const inv1 = this;
@@ -631,4 +669,4 @@
             defaultView(output, inv1);
         }
     }
-})(); 
+})();

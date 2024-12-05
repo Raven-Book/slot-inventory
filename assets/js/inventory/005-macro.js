@@ -199,8 +199,8 @@
         }
     });
 
-    Macro.add(AllCategories, {
-        tags: ['description', 'tags', 'durability', 'unstackable', 'permanent', 'unique', 'url'],
+    Macro.add(['item', ...AllCategories], {
+        tags: ['description', 'tags', 'durability', 'unstackable', 'permanent', 'unique', 'url', 'category'],
         handler() {
             if (this.args.length < 1) {
                 return this.error('Not enough arguments provided. At least one argument is required');
@@ -209,7 +209,7 @@
             const id = this.args[0];
             const name = this.args[1] ?? id;
 
-            let tags, durability = 0, url = '', description = '', handler = null, unstackable = false, permanent = false, unique = false;
+            let tags, icategory = [], durability = 0, url = '', description = '', handler = null, unstackable = false, permanent = false, unique = false;
 
             handler = this.payload[0].contents.trim();
 
@@ -237,15 +237,30 @@
                         case 'url':
                             url = pl.args.raw;
                             break;
+                        case 'category':
+                            icategory = pl.args;
+                            break;
                     }
                 }
             }
+            let cat, sub;
 
-            const [cat, sub] = category(this.name);
+            if (this.name === 'item') {
+                if (icategory.length === 0) {
+                    icategory.push('misc');
+                }
+                if (icategory.length === 1) {
+                    icategory.push('other');
+                }
+                [cat, sub] = icategory;
+            } else {
+                [cat, sub] = category(this.name);
+            }            
+         
             Item.add(id, {
                 displayName: name,
                 description,
-                stackable: !unstackable,
+                stackable: !unstackable && durability === 0,
                 durability,
                 handler,
                 permanent,
@@ -256,6 +271,7 @@
             }, tags);
         }
     });
+
 
 
 })();

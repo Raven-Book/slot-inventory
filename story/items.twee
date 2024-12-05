@@ -6,15 +6,25 @@
 木剑，木制的剑，非常脆弱。
 <</weapon>>
 
+<<item 'iron_sword' '铁剑'>>
+<<durability 100>>
+<<category equipment weapon>>
+<<description>>
+普通的铁剑，比较耐用。
+<</item>>
+
 <<script>>
-Item.add('iron_sword', {
-    displayName: '铁剑',
-    description: '普通的铁剑，比较耐用。',
-    cat: 'equipment',
-    sub: 'weapon',
-    stackable: false,
-    durability: 100
-});
+// Item.add('iron_sword', {
+//     displayName: '铁剑',
+//     description: '普通的铁剑，比较耐用。',
+//     cat: 'equipment',
+//     sub: 'weapon',
+//     stackable: false,
+//     durability: 100,
+//     handler: () => {
+        
+//     }
+// });
 
 Item.add('steel_sword', {
     displayName: '钢剑',
