@@ -860,7 +860,7 @@
         }
 
         toJSON() {
-            return JSON.reviveWrapper(String.format(
+            return Serial.createReviver(String.format(
                 'new {0}({1},{2},{3},{4})',
                 'Inventory',
                 JSON.stringify(this.slots),
