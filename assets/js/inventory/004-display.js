@@ -1,6 +1,6 @@
 (() => {
     'use strict';
-    
+
     const DURABILITY_THRESHOLDS = {
         90: 'perfect',
         70: 'high',
@@ -245,9 +245,12 @@
             const $item = $('<div>').addClass('menu-item').text(menuItem.text);
             
             let handler = null;
+            let isAppend = true;
             if (menuItem.setup) {
                 handler = menuItem.setup();
                 if (handler === false) {
+                    isAppend = false;
+                } else if (handler === null) {
                     $item.addClass('disabled');
                 }
             } else if (menuItem.condition) {
@@ -269,11 +272,12 @@
                 });
             }
             
-            $item.appendTo(menu);
-
-            if (!hasSeparator && idx !== menuItems.length - 1) {
-                $('<div>').addClass('menu-separator').appendTo(menu);
-                hasSeparator = true;
+            if (isAppend) {
+                menu.append($item);
+                if (!hasSeparator && idx < menuItems.length - 1) {
+                    menu.append($('<div>').addClass('menu-separator'));
+                    hasSeparator = true;
+                }
             }
         });
 
