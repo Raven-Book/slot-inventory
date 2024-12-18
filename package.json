@@ -1,0 +1,25 @@
+{
+	"versions": {
+		"inventory": "0.1.9",
+		"recipes": "0.2.1"
+	},
+	"scripts": {
+		"assets": "webpack --mode production",
+		"dev": "tweego -w -o .\\dist\\debug.html .\\assets .\\story",
+		"release": "tweego -o .\\dist\\index.html .\\dist\\assets\\ .\\story"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.26.0",
+		"@babel/preset-env": "^7.26.0",
+		"babel-loader": "^9.2.1",
+		"css-loader": "^7.1.2",
+		"css-minimizer-webpack-plugin": "^7.0.0",
+		"glob": "^11.0.0",
+		"mini-css-extract-plugin": "^2.9.2",
+		"sass": "^1.81.0",
+		"sass-loader": "^16.0.3",
+		"terser-webpack-plugin": "^5.3.10",
+		"webpack": "^5.96.1",
+		"webpack-cli": "^5.1.4"
+	}
+}

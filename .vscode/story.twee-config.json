@@ -1,0 +1,13 @@
+{
+    "sugarcube-2": {
+        "macros": {
+            "newinv": {},
+            "store": {},
+            "drop": {},
+            "inv": {},
+            "misc": {
+                "container": true
+            }
+        }
+    }
+}

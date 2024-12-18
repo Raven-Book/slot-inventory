@@ -1,0 +1,208 @@
+:: StoryData
+{
+    "ifid": "7290E98B-F8EB-4C77-AD28-9E538F0048AF",
+    "format": "SugarCube",
+    "format-version": "2.37.3"
+}
+
+:: StoryTitle
+Inventory 示例
+
+:: StoryInit
+<<set Popup.darkMode = false>>
+<<set $hp = 100>>
+<<newinv $inv1 20 64>>
+<<newinv $inv2 10 30>>
+<<store $inv1 '诅咒木' 2>>
+<<store $inv1 '诅咒木' 2>>
+<<store $inv1 'iron_sword' 5 null 20>>
+<<store $inv1 'iron_ore' 20>>
+<<store $inv1 '煤炭' 100>> 
+<<store $inv2 '木剑' 1 null 10>>
+<<store $inv2 '治疗药水' 10>>
+<<store $inv2 '伤害药水' 10>>
+<<store $inv2 '石剑'>>
+/* 转移$inv1的物品到$inv2 */
+<<transfer $inv1 $inv2 4>>
+<<transfer $inv1 $inv2 5>>
+
+/* 排序 */
+<<run $inv1.sort([], true)>>
+<<set setup.redo = (tags = '') => {
+        tags = String(tags).trim().splitOrEmpty(/\s+/)
+        triggerEvent(':redo', document, { detail : { tags } });
+    };
+    window.redo = window.redo || setup.redo;
+>>
+:: StoryCaption
+<<do tag 'caption'>>
+生命值: $hp
+<</do>>
+
+:: StoryMenu
+<<link 背包>>
+    <<run Dialog.create('背包').wiki('<<inv $inv1>>').open()>>
+<</link>>
+
+:: Start
+<<run Popup.success('欢迎', '欢迎来到Inventory示例')>>  
+[[物品获取]]
+[[物品给予]]
+[[背包页面]]
+[[物品使用]]
+[[物品删除]]
+[[查找已注册的物品|物品查找]]
+
+:: 物品删除
+[[返回|Start]]
+
+<<button '移除第一格的物品'>>
+    <<drop $inv1 1>>
+<</button>>
+
+<<button '移除第九格物品一个'>>
+    <<drop $inv1 9 1>>
+<</button>>
+
+<<button '移除第十格物品一个'>>
+    <<drop $inv1 10 1>>
+<</button>>
+
+<<button '删除所有诅咒木'>>
+    /* 获取诅咒木的数量 */
+    <<set _count = $inv1.count('诅咒木')>>
+    /* delete会无视不可丢弃的标志 */
+    <<delete $inv1 '诅咒木' _count>>
+<</button>>
+:: 物品获取
+[[返回|Start]]
+
+<<take $inv1 $inv2>>
+
+:: 物品给予
+[[返回|Start]]
+
+<<give $inv1 $inv2>>
+
+:: 背包页面
+[[返回|Start]]
+
+<<inv $inv1>>
+
+:: 物品使用 [nobr]
+<div class="inventory-container">
+    <div>
+        [[返回|Start]]
+    </div>
+    
+    <div class="inventory-grid">
+        <div>
+            <div class="item-name">物品槽位1: <b><<= Item.get($inv1.slots[0].id)?.displayName ?? $inv1.slots[0].id >></b></div>
+            <<button "使用">>
+                <<use $inv1 1>>
+            <</button>>
+        </div>
+
+        <div>
+            <div class="item-name">诅咒木</div>
+            <<button "使用">>
+                <<use $inv1 '诅咒木'>>
+            <</button>>
+        </div>
+
+        <div>
+            <div class="item-name">治疗药水</div>
+            <<button "使用">>
+                <<use $inv1 '治疗药水'>>
+            <</button>>
+        </div>
+    </div>
+</div>
+
+:: 物品查找 [nobr]
+[[返回|Start]]
+
+<div class="item-container">
+    /* 1. 按装备子类型查找 */
+    <div class="item-section">
+        <h3>武器列表</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.sub === 'weapon')>>
+            <div class="item-entry">_ele.displayName</div>
+        <</for>>
+        </div>
+    </div>
+
+    /* 2. 按装备子类型查找 */
+    <div class="item-section">
+        <h3>护甲列表</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.sub === 'armor')>>
+            <div class="item-entry">_ele.displayName</div>
+        <</for>>
+        </div>
+    </div>
+
+    /* 3. 按主类型查找 */
+    <div class="item-section">
+        <h3>所有材料</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.cat === 'material')>>
+            <div class="item-entry">_ele.displayName</div>
+        <</for>>
+        </div>
+    </div>
+
+    /* 4. 按材料子类型查找 */
+    <div class="item-section">
+        <h3>矿石列表</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.sub === 'ore')>>
+            <div class="item-entry">_ele.displayName</div>
+        <</for>>
+        </div>
+    </div>
+
+    /* 5. 按堆叠属性查找 */
+    <div class="item-section">
+        <h3>可堆叠物品</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.stackable === true &&  item.durability <= 0)>>
+            <div class="item-entry">_ele.displayName</div>
+        <</for>>
+        </div>
+    </div>
+
+    /* 6. 按耐久度属性查找 */
+    <div class="item-section">
+        <h3>有耐久度的物品</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.durability > 0)>>
+            <div class="item-entry">
+                _ele.displayName
+                <span class="durability">耐久度：_ele.durability</span>
+            </div>
+        <</for>>
+        </div>
+    </div>
+
+    /* 7. 复合条件查找 */
+    <div class="item-section">
+        <h3>可堆叠的材料</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.cat === 'material' && item.stackable === true)>>
+            <div class="item-entry">_ele.displayName</div>
+        <</for>>
+        </div>
+    </div>
+
+    /* 8. 按名称关键词查找 */
+    <div class="item-section">
+        <h3>名称包含"剑"的物品</h3>
+        <div class="item-list">
+        <<for _ele range Item.filter(item => item.displayName.includes('剑'))>>
+            <div class="item-entry">_ele.displayName</div>
+        <</for>>
+        </div>
+    </div>
+</div>

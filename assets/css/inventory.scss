@@ -1,0 +1,361 @@
+$border-color: rgba(255, 255, 255, 0.2);
+$bg-dark: rgba(0, 0, 0, 0.2);
+$bg-light: rgba(255, 255, 255, 0.1);
+$menu-bg: rgba(20, 20, 20, 0.95);
+
+.inventory-container {
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5em;
+}
+
+.inv-slot {
+  position: relative;
+  aspect-ratio: 1;
+  min-height: 48px;
+  padding: 0.25em;
+  background: $bg-light;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  overflow: hidden;
+
+  & img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  &:hover:not(.slot-img) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  &.empty {
+    background: $bg-dark;
+  }
+
+  &.dragging {
+    opacity: 0.5;
+    background: rgba(100, 100, 100, 0.3);
+  }
+
+  &.drag-over {
+    background: rgba(100, 200, 100, 0.3);
+    border: 2px solid #4CAF50;
+  }
+
+  &.touch-active {
+    animation: touchPulse 0.5s ease-in-out;
+    background: rgba(100, 100, 100, 0.2);
+  }
+
+}
+
+// 物品相关样式
+.item {
+  &-name {
+    font-size: 0.8em;
+    text-align: center;
+    word-break: break-all;
+  }
+
+  &-count {
+    position: absolute;
+    right: 0.2em;
+    bottom: 0.2em;
+    font-size: 0.7em;
+    opacity: 0.8;
+  }
+
+  &-durability {
+    &-container {
+      position: absolute;
+      left: 0.2em;
+      right: 0.2em;
+      bottom: 0.2em;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    &-bar {
+      height: 100%;
+      transition: all 0.2s;
+      
+      // 满耐久 (91-100%)
+      &.perfect {
+        background: linear-gradient(90deg, 
+          rgba(100, 255, 150, 0.8),
+          rgba(60, 220, 100, 0.9)
+        );
+        box-shadow: 0 0 4px rgba(80, 255, 120, 0.4);
+      }
+
+      // 高耐久 (71-90%)
+      &.high {
+        background: linear-gradient(90deg, 
+          rgba(120, 190, 255, 0.8),
+          rgba(80, 140, 255, 0.9)
+        );
+        box-shadow: 0 0 4px rgba(120, 190, 255, 0.4);
+      }
+      
+      // 良好耐久 (51-70%)
+      &.good {
+        background: linear-gradient(90deg, 
+          rgba(180, 180, 255, 0.8),
+          rgba(140, 140, 255, 0.9)
+        );
+        box-shadow: 0 0 4px rgba(160, 160, 255, 0.4);
+      }
+      
+      // 中等耐久 (31-50%)
+      &.medium {
+        background: linear-gradient(90deg, 
+          rgba(255, 180, 100, 0.8),
+          rgba(255, 140, 60, 0.9)
+        );
+        box-shadow: 0 0 4px rgba(255, 160, 80, 0.4);
+      }
+      
+      // 较低耐久 (11-30%)
+      &.poor {
+        background: linear-gradient(90deg, 
+          rgba(255, 140, 100, 0.8),
+          rgba(255, 100, 60, 0.9)
+        );
+        box-shadow: 0 0 4px rgba(255, 120, 80, 0.4);
+      }
+      
+      // 极低耐久 (0-10%)
+      &.low {
+        background: linear-gradient(90deg, 
+          rgba(255, 100, 100, 0.8),
+          rgba(255, 60, 60, 0.9)
+        );
+        box-shadow: 0 0 4px rgba(255, 80, 80, 0.4);
+      }
+    }
+
+    &-text {
+      position: absolute;
+      left: 0.2em;
+      bottom: 1.2em;
+      font-size: 0.7em;
+      opacity: 0.8;
+      display: flex;
+      gap: 0.3em;
+      align-items: center;
+      
+      &::after {
+        content: attr(data-percent);
+        font-size: 0.9em;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+
+  // 右键菜单
+  &-context-menu {
+    position: fixed;
+    background: $menu-bg;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 4px 0;
+    min-width: 120px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+
+    .menu-item {
+      padding: 8px 16px;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+
+      &:hover {
+        background: rgba(100, 100, 100, 0.3);
+      }
+
+      &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        color: #888;
+
+        &:hover {
+          background: transparent;
+        }
+      }
+    }
+
+    .menu-separator {
+      height: 1px;
+      background: #444;
+      margin: 4px 0;
+    }
+  }
+}
+
+// 库存控制相关样式
+.inventory-controls {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 1em;
+  align-items: center;
+}
+
+.inv-search {
+  flex: 1;
+  padding: 0.5em;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background: $bg-dark;
+  color: inherit;
+}
+
+.inv-buttons {
+  display: flex;
+  gap: 0.5em;
+}
+
+%button-base {
+  padding: 0.5em 1em;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background: $bg-dark;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border: 1px solid $border-color;
+    background: $bg-light;
+  }
+}
+
+.inv-regex-toggle,
+.inv-sort,
+.inv-filter {
+  @extend %button-base;
+}
+
+
+ul.transfer-table.slot-inventory {
+  margin: 0 auto;
+  padding: 0;
+}
+
+.slot-inventory-listing {
+  list-style: none;
+  padding: 0.3rem 0.3rem 0.3rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  &:nth-child(2n) {
+    background-color: #000;
+  }
+}
+
+.inventory-transfer-container {
+  > span,
+  > a {
+    display: inline-block;
+  }
+}
+
+.all-listing.slot-inventory-listing {
+  border-top: 1px solid #fafafa;
+  background-color: transparent;
+}
+
+.equipment-container {
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1em;
+
+  .equipment-title {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5em;
+    padding: 0.5em;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+}
+
+// 动画相关
+@keyframes touchPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+// 移动设备适配
+@media (max-width: 768px) {
+  .inv-regex-toggle,
+  .inv-sort,
+  .inv-filter {
+    padding: 0.8em 1.2em;
+    min-width: 44px;
+    min-height: 44px;
+    font-size: 0.9em;
+    margin: 0 2px;
+  }
+
+  .inv-filter {
+    text-align: center;
+  }
+
+  .inventory-controls {
+    flex-wrap: wrap;
+    gap: 0.8em;
+  }
+
+  .inv-buttons {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+// 新增：更小屏幕适配
+@media (max-width: 436px) {
+  .inventory-grid {
+    grid-template-columns: repeat(3, 1fr); // 调整为两列布局
+  }
+
+  .inv-buttons {
+    flex-direction: column; // 垂直布局按钮
+    gap: 0.5em;
+  }
+
+  .inventory-controls {
+    flex-direction: column; // 垂直布局控制
+    align-items: stretch;
+  }
+
+  .inv-search {
+    width: auto; // 输入框占满宽度
+    margin-bottom: 0.5em; // 增加底部间距
+  }
+}

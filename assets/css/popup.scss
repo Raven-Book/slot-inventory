@@ -1,0 +1,189 @@
+@use "sass:map";
+
+$popup-padding: 16px;
+$popup-border-radius: 12px;
+$popup-width: 280px;
+$popup-min-height: 60px;
+
+$popup-colors: (
+  'default': rgba(40, 40, 40, 0.95),
+  'info': rgba(64, 158, 255, 0.95),
+  'success': rgba(103, 194, 58, 0.95),
+  'warn': rgba(230, 162, 60, 0.95),
+  'error': rgba(179, 69, 69, 0.95),
+  'debug': rgba(54, 53, 53, 0.95)
+);
+
+@mixin popup-variant($color) {
+  background: $color;
+  box-shadow: 0 4px 20px rgba($color, 0.3);
+}
+
+.custom-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: $popup-width;
+  min-height: $popup-min-height;
+  background: map.get($popup-colors, 'default');
+  color: #fff;
+  border-radius: $popup-border-radius;
+  padding: $popup-padding;
+  z-index: 999999;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.95) translateY(-10px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  // 弹窗类型样式
+  @each $type, $color in $popup-colors {
+    &.popup-#{$type} {
+      @include popup-variant($color);
+    }
+  }
+
+  // 暗色模式
+  &.popup-info.dark-mode,
+  &.popup-success.dark-mode,
+  &.popup-warn.dark-mode,
+  &.popup-debug.dark-mode {
+    background: map.get($popup-colors, 'debug');
+    box-shadow: 0 4px 20px rgba(50, 50, 50, 0.3);
+
+    .popup-progress {
+      background: rgba(100, 100, 100, 0.3);
+    }
+  }
+
+  // 错误类型样式优先级
+  &.popup-error,
+  &.popup-error.dark-mode {
+    $error-color: map.get($popup-colors, 'error');
+    @include popup-variant($error-color);
+  }
+
+  // 图标基础样式
+  &::before {
+    content: '';
+    position: absolute;
+    left: $popup-padding;
+    top: $popup-padding;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+    transform: translate(var(--icon-offset-x, 0), var(--icon-offset-y, 0));
+  }
+
+  // 各类型图标
+  &.popup-info::before {
+    --icon-offset-x: 0px;
+    --icon-offset-y: 1.3px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'/%3E%3C/svg%3E");
+  }
+
+  &.popup-success::before {
+    --icon-offset-x: 0px;
+    --icon-offset-y: 1.3px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+  }
+
+  &.popup-warn::before {
+    --icon-offset-x: 0px;
+    --icon-offset-y: 1.3px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'/%3E%3C/svg%3E");
+  }
+
+  &.popup-error::before {
+    --icon-offset-x: 0px;
+    --icon-offset-y: 1.3px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'/%3E%3C/svg%3E");
+  }
+
+  &.popup-debug::before {
+    --icon-offset-x: 0px;
+    --icon-offset-y: 1.3px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M20 8h-2.81c-.45-.78-1.07-1.45-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5c-.49 0-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20V8zm-6 8h-4v-2h4v2zm0-4h-4v-2h4v2z'/%3E%3C/svg%3E");
+  }
+
+  // 显示状态
+  &.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  // 标题样式
+  .popup-title {
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 32px;
+    padding-right: 16px;
+    color: #fff;
+    line-height: 1.4;
+
+    & + .popup-content {
+      margin-top: 10px;
+    }
+  }
+
+  // 内容样式
+  .popup-content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    padding-left: 32px;
+    margin-top: 4px;
+  }
+
+  // 关闭按钮
+  .popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 12px;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+  }
+
+  // 进度条
+  .popup-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0 0 $popup-border-radius $popup-border-radius;
+    transform: translateX(0);
+    transform-origin: left center;
+    will-change: transform;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+    }
+  }
+} 
