@@ -10,9 +10,12 @@
         0: 'low'
     };
 
+    const SORTED_THRESHOLDS = Object.entries(DURABILITY_THRESHOLDS)
+        .sort(([a], [b]) => Number(b) - Number(a));
+
     function getDurabilityClass(percent) {
-        for (const [threshold, className] of Object.entries(DURABILITY_THRESHOLDS)) {
-            if (percent > threshold) {
+        for (const [threshold, className] of SORTED_THRESHOLDS) {
+            if (percent >= Number(threshold)) {
                 return className;
             }
         }

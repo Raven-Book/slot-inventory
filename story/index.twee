@@ -15,6 +15,7 @@ Inventory 示例
 <<newinv $inv2 10 30>>
 <<store $inv1 '诅咒木' 2>>
 <<store $inv1 '诅咒木' 2>>
+<<store $inv1 'iron_sword' 1>>
 <<store $inv1 'iron_sword' 5 null 20>>
 <<store $inv1 'iron_ore' 20>>
 <<store $inv1 '煤炭' 100>> 

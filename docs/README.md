@@ -4,7 +4,7 @@
 > [!TIP]
 > 基于 ChapelR 的 [Simple Inventory](https://github.com/ChapelR/simple-inventory/) 修改
 > 
-> 当前版本: Inventory v0.1.10, Recipes v0.2.1
+> 当前版本: Inventory v0.1.11, Recipes v0.2.1
 >
 > 打包文件在 [dist/assets](../dist/assets)，使用指南在 [docs/guide.md](./guide.md)
 
