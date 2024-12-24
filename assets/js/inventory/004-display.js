@@ -174,6 +174,7 @@
                     $(document).trigger({
                         type: 'inventory:menu.wear',
                         source: 'Slot Inventory',
+                        idx: slotIdx,
                         inv,
                         slot,
                         detail
@@ -268,6 +269,7 @@
                     e.stopPropagation();
                     if (handler) {
                         handler();
+                        inv.render($container[0]);
                     } else if (menuItem.action) {
                         menuItem.action();
                     }
@@ -313,6 +315,7 @@
             } else if (typeof handler === 'string' && handler.trim() !== '') {
                 $.wiki(handler.trim());
             }
+            inv.render($container[0]);
         } catch (error) {
             console.error('Error handling item use:', error);
         }
