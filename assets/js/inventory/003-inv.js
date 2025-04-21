@@ -644,6 +644,8 @@
             slot.count -= count;
 
             const itemInfo = this.items[slot.id];
+            const idxPos = itemInfo.idx.findIndex(pos => pos === idx);
+            itemInfo.num[idxPos] -= count;
             itemInfo.idx.push(emptyIdx);
             itemInfo.num.push(count);
 

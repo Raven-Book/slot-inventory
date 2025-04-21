@@ -43,9 +43,9 @@ const paths = {
     './assets/css/popup.scss'
   ],
   recipes: [
-    './assets/js/recipes/recipe.js',
-    './assets/js/recipes/book.js',
-    './assets/js/recipes/macro.js'
+    './assets/js/recipes/001-recipe.js',
+    './assets/js/recipes/002-book.js',
+    './assets/js/recipes/003-macro.js'
   ]
 };
 

@@ -1,12 +1,12 @@
 {
 	"versions": {
-		"inventory": "0.1.12",
-		"recipes": "0.2.1"
+		"inventory": "0.1.13",
+		"recipes": "0.2.6"
 	},
 	"scripts": {
 		"assets": "webpack --mode production",
-		"dev": "tweego -w -o .\\dist\\debug.html .\\assets .\\story",
-		"release": "tweego -o .\\dist\\index.html .\\dist\\assets\\ .\\story"
+		"dev": "tweego -w -o dist/debug.html assets story",
+		"release": "tweego -o dist/index.html dist/assets/ story"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.26.0",

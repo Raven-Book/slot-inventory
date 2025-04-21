@@ -104,7 +104,8 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://7290E98B-F8EB-4C77-AD28-9E538F0048AF// --><tw-storydata name="Inventory 示例" startnode="4" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="7290E98B-F8EB-4C77-AD28-9E538F0048AF" zoom="1" format="SugarCube" format-version="2.37.3" options="debug" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">.item-container {
+	<!-- UUID://7290E98B-F8EB-4C77-AD28-9E538F0048AF// --><tw-storydata name="Inventory 示例" startnode="4" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="7290E98B-F8EB-4C77-AD28-9E538F0048AF" zoom="1" format="SugarCube" format-version="2.37.3" options="debug" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "index.css" */
+.item-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
@@ -153,7 +154,12 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
     color: #888;
     font-size: 0.9em;
     margin-left: 8px;
-}</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "000-popup.js" */
+}
+/* twine-user-stylesheet #2: "inventory.css" */
+/* Slot Inventory Styles, Ver.0.1.12 */
+/* Build Date: 2024-12-24T06:19:40.519Z */
+.inventory-container{background:rgba(0,0,0,.1);border-radius:4px;padding:1em}.inventory-grid{display:grid;gap:.5em;grid-template-columns:repeat(5,1fr)}.inv-slot{aspect-ratio:1;background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;cursor:pointer;min-height:48px;overflow:hidden;padding:.25em;position:relative;transition:all .2s}.inv-slot img{border-radius:inherit;height:100%;left:0;object-fit:cover;pointer-events:none;position:absolute;top:0;width:100%}.inv-slot:hover:not(.slot-img){background:hsla(0,0%,100%,.2)}.inv-slot.empty{background:rgba(0,0,0,.2)}.inv-slot.dragging{background:hsla(0,0%,39%,.3);opacity:.5}.inv-slot.drag-over{background:rgba(100,200,100,.3);border:2px solid #4caf50}.inv-slot.touch-active{animation:touchPulse .5s ease-in-out;background:hsla(0,0%,39%,.2)}.item-name{font-size:.8em;text-align:center;word-break:break-all}.item-count{font-size:.7em;opacity:.8}.item-count,.item-durability-container{bottom:.2em;position:absolute;right:.2em}.item-durability-container{background:rgba(0,0,0,.3);border-radius:2px;height:4px;left:.2em;overflow:hidden}.item-durability-bar{height:100%;transition:all .2s}.item-durability-bar.perfect{background:linear-gradient(90deg,rgba(100,255,150,.8),rgba(60,220,100,.9));box-shadow:0 0 4px rgba(80,255,120,.4)}.item-durability-bar.high{background:linear-gradient(90deg,rgba(120,190,255,.8),rgba(80,140,255,.9));box-shadow:0 0 4px rgba(120,190,255,.4)}.item-durability-bar.good{background:linear-gradient(90deg,rgba(180,180,255,.8),rgba(140,140,255,.9));box-shadow:0 0 4px rgba(160,160,255,.4)}.item-durability-bar.medium{background:linear-gradient(90deg,rgba(255,180,100,.8),rgba(255,140,60,.9));box-shadow:0 0 4px rgba(255,160,80,.4)}.item-durability-bar.poor{background:linear-gradient(90deg,rgba(255,140,100,.8),rgba(255,100,60,.9));box-shadow:0 0 4px rgba(255,120,80,.4)}.item-durability-bar.low{background:linear-gradient(90deg,hsla(0,100%,70%,.8),rgba(255,60,60,.9));box-shadow:0 0 4px rgba(255,80,80,.4)}.item-durability-text{align-items:center;bottom:1.2em;display:flex;font-size:.7em;gap:.3em;left:.2em;opacity:.8;position:absolute}.item-durability-text:after{color:hsla(0,0%,100%,.6);content:attr(data-percent);font-size:.9em}.item-context-menu{background:hsla(0,0%,8%,.95);border:1px solid #444;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.5);min-width:120px;padding:4px 0;position:fixed}.item-context-menu .menu-item{background:transparent;color:#fff;cursor:pointer;padding:8px 16px;user-select:none}.item-context-menu .menu-item:hover{background:hsla(0,0%,39%,.3)}.item-context-menu .menu-item.disabled{color:#888;cursor:not-allowed;opacity:.5}.item-context-menu .menu-item.disabled:hover{background:transparent}.item-context-menu .menu-separator{background:#444;height:1px;margin:4px 0}.inventory-controls{align-items:center;display:flex;gap:1em;margin-bottom:1em}.inv-search{background:rgba(0,0,0,.2);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;color:inherit;flex:1;padding:.5em}.inv-buttons{display:flex;gap:.5em}.inv-filter,.inv-regex-toggle,.inv-sort{background:rgba(0,0,0,.2);border:1px solid hsla(0,0%,100%,.2);border-radius:4px;color:inherit;cursor:pointer;padding:.5em 1em;transition:all .2s}.inv-filter:hover,.inv-regex-toggle:hover,.inv-sort:hover{background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2)}ul.transfer-table.slot-inventory{margin:0 auto;padding:0}.slot-inventory-listing{display:grid;grid-template-columns:repeat(5,1fr);list-style:none;padding:.3rem .3rem .3rem 1rem}.slot-inventory-listing:nth-child(2n){background-color:#000}.inventory-transfer-container>a,.inventory-transfer-container>span{display:inline-block}.all-listing.slot-inventory-listing{background-color:transparent;border-top:1px solid #fafafa}.equipment-container{background:rgba(0,0,0,.15);border:1px solid hsla(0,0%,100%,.1);border-radius:4px;margin-bottom:1em;padding:1em}.equipment-container .equipment-title{color:hsla(0,0%,100%,.9);font-size:1.2em;margin-bottom:.5em;text-align:center}.equipment-container .equipment-grid{background:rgba(0,0,0,.2);border-radius:4px;display:grid;gap:.5em;grid-template-columns:repeat(4,1fr);padding:.5em}@keyframes touchPulse{0%{transform:scale(1)}50%{transform:scale(1.05)}to{transform:scale(1)}}@media(max-width:768px){.inv-filter,.inv-regex-toggle,.inv-sort{font-size:.9em;margin:0 2px;min-height:44px;min-width:44px;padding:.8em 1.2em}.inv-filter{text-align:center}.inventory-controls{flex-wrap:wrap;gap:.8em}.inv-buttons{justify-content:space-between;width:100%}}@media(max-width:436px){.inventory-grid{grid-template-columns:repeat(3,1fr)}.inv-buttons{flex-direction:column;gap:.5em}.inventory-controls{align-items:stretch;flex-direction:column}.inv-search{margin-bottom:.5em;width:auto}}.custom-popup{background:rgba(40,40,40,.95);border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.5);color:#fff;min-height:60px;opacity:0;overflow:hidden;padding:16px;position:fixed;right:20px;top:20px;transform:scale(.95) translateY(-10px);transition:all .4s cubic-bezier(.34,1.56,.64,1);width:280px;z-index:999999}.custom-popup.popup-default{background:rgba(40,40,40,.95);box-shadow:0 4px 20px rgba(40,40,40,.3)}.custom-popup.popup-info{background:rgba(64,158,255,.95);box-shadow:0 4px 20px rgba(64,158,255,.3)}.custom-popup.popup-success{background:rgba(103,194,58,.95);box-shadow:0 4px 20px rgba(103,194,58,.3)}.custom-popup.popup-warn{background:rgba(230,162,60,.95);box-shadow:0 4px 20px rgba(230,162,60,.3)}.custom-popup.popup-error{background:rgba(179,69,69,.95);box-shadow:0 4px 20px rgba(179,69,69,.3)}.custom-popup.popup-debug{background:rgba(54,53,53,.95);box-shadow:0 4px 20px rgba(54,53,53,.3)}.custom-popup.popup-debug.dark-mode,.custom-popup.popup-info.dark-mode,.custom-popup.popup-success.dark-mode,.custom-popup.popup-warn.dark-mode{background:rgba(54,53,53,.95);box-shadow:0 4px 20px rgba(50,50,50,.3)}.custom-popup.popup-debug.dark-mode .popup-progress,.custom-popup.popup-info.dark-mode .popup-progress,.custom-popup.popup-success.dark-mode .popup-progress,.custom-popup.popup-warn.dark-mode .popup-progress{background:hsla(0,0%,39%,.3)}.custom-popup.popup-error,.custom-popup.popup-error.dark-mode{background:rgba(179,69,69,.95);box-shadow:0 4px 20px rgba(179,69,69,.3)}.custom-popup:before{background-repeat:no-repeat;background-size:contain;content:"";height:20px;left:16px;opacity:.8;position:absolute;top:16px;transform:translate(var(--icon-offset-x,0),var(--icon-offset-y,0));width:20px}.custom-popup.popup-info:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m1 15h-2v-6h2zm0-8h-2V7h2z'/%3E%3C/svg%3E")}.custom-popup.popup-success:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E")}.custom-popup.popup-warn:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M1 21h22L12 2zm12-3h-2v-2h2zm0-4h-2v-4h2z'/%3E%3C/svg%3E")}.custom-popup.popup-error:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2m5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12z'/%3E%3C/svg%3E")}.custom-popup.popup-debug:before{--icon-offset-x:0px;--icon-offset-y:1.3px;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M20 8h-2.81a6 6 0 0 0-1.82-1.96L17 4.41 15.59 3l-2.17 2.17C12.96 5.06 12.49 5 12 5s-.96.06-1.41.17L8.41 3 7 4.41l1.62 1.63C7.88 6.55 7.26 7.22 6.81 8H4v2h2.09c-.05.33-.09.66-.09 1v1H4v2h2v1c0 .34.04.67.09 1H4v2h2.81c1.04 1.79 2.97 3 5.19 3s4.15-1.21 5.19-3H20v-2h-2.09c.05-.33.09-.66.09-1v-1h2v-2h-2v-1c0-.34-.04-.67-.09-1H20zm-6 8h-4v-2h4zm0-4h-4v-2h4z'/%3E%3C/svg%3E")}.custom-popup.show{opacity:1;transform:scale(1) translateY(0)}.custom-popup .popup-title{color:#fff;font-size:16px;font-weight:600;line-height:1.4;padding-left:32px;padding-right:16px}.custom-popup .popup-title+.popup-content{margin-top:10px}.custom-popup .popup-content{color:hsla(0,0%,100%,.9);font-size:14px;line-height:1.5;margin-top:4px;padding-left:32px}.custom-popup .popup-close{border-radius:12px;color:hsla(0,0%,100%,.6);cursor:pointer;font-size:20px;height:24px;line-height:24px;position:absolute;right:12px;text-align:center;top:12px;transition:all .2s;width:24px}.custom-popup .popup-close:hover{background:hsla(0,0%,100%,.1);color:#fff}.custom-popup .popup-progress{background:hsla(0,0%,100%,.3);border-radius:0 0 12px 12px;bottom:0;height:3px;left:0;position:absolute;transform:translateX(0);transform-origin:left center;width:100%;will-change:transform}.custom-popup .popup-progress:after{background:linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,.5) 50%,hsla(0,0%,100%,0));content:"";height:100%;left:0;position:absolute;top:0;width:100%}
+/* End Slot Inventory Styles */</style><script role="script" id="twine-user-script" type="text/twine-javascript">/* twine-user-script #1: "000-popup.js" */
 (() => {
     'use strict';
     class Popup {
@@ -1415,6 +1421,8 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
             slot.count -= count;
 
             const itemInfo = this.items[slot.id];
+            const idxPos = itemInfo.idx.findIndex(pos => pos === idx);
+            itemInfo.num[idxPos] -= count;
             itemInfo.idx.push(emptyIdx);
             itemInfo.num.push(count);
 
@@ -1917,6 +1925,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
                     e.stopPropagation();
                     if (handler) {
                         handler();
+                        inv.render($container[0]);
                     } else if (menuItem.action) {
                         menuItem.action();
                     }
@@ -1962,6 +1971,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
             } else if (typeof handler === 'string' && handler.trim() !== '') {
                 $.wiki(handler.trim());
             }
+            inv.render($container[0]);
         } catch (error) {
             console.error('Error handling item use:', error);
         }
@@ -2566,425 +2576,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
 
 })();
-/* twine-user-script #7: "book.js" */
-(() => {
-    'use strict';
-
-    const convertToArray = (input) => {
-        const array = [];
-
-        for (const [key,value] of Object.entries(input)) {
-            array.push(key, value);
-        }
-
-        return array;
-    }
-
-    class RecipeBook {
-
-        static success = '制作成功';
-        static failure = '制作失败';
-        static not_found = '配方不存在';
-        static not_unlocked = '配方未解锁';
-        static missing_materials = '缺少材料';
-        static unlocked_success = '配方成功解锁';
-        static default_no_recipe = '空配方';
-        static crafting_table = 'crafting_table';
-
-        constructor(ct, recipes = new Map(), invs = []) {
-            if (!(recipes instanceof Map)) {
-                throw new Error('Expected "recipes" to be an instance of Map');
-            }
-
-            if (!Array.isArray(invs)) {
-                throw new Error('Expected "invs" to be an array');
-            }
-            this.invs = invs;
-            this.ct = ct;
-
-            State.variables[this.ct] = State.variables[this.ct] || new Inventory();
-
-            this.recipes = recipes;
-            this._recipes = RecipeBook.sort(recipes);
-        }
-
-
-        has(id) {
-            return this.recipes.has(id);
-        }
-
-        hasItems(input) {
-            const obj = State.variables[this.ct];
-            for (const [key, required] of Object.entries(input)) {
-                const actualCount = obj.count(key);
-                if (actualCount < required) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        drop(input) {
-            const obj = State.variables[this.ct];
-            const arr = convertToArray(input)
-            if (typeof obj.pickup === 'undefined'){
-                obj.delete(...arr);
-            } else {
-                obj.drop(...arr);
-            }
-        }
-
-        update() {
-            this._recipes = RecipeBook.sort(this.recipes);
-        }
-
-        hasAllTags() {
-            const tags = [].slice.call(arguments).flat(Infinity);
-            const result = [];
-
-            for (const recipe of this._recipes) {
-               if(recipe.hasAllTags(tags)) {
-                   result.push(recipe);
-               }
-            }
-            return result;
-        }
-
-
-        searchIndex(priority) {
-            let low = 0;
-            let high = this._recipes.length - 1;
-
-            while (low <= high) {
-                const mid = Math.floor((low + high) / 2);
-                if (this._recipes[mid].priority === priority) {
-                    return mid;
-                } else if(this._recipes[mid].priority < priority) {
-                    low = mid + 1;
-                } else {
-                    high = mid - 1;
-                }
-            }
-
-            return low;
-        }
-
-        insert(id, methods, opts, tags) {
-            if (!Array.isArray(methods)) {
-                methods = [methods];
-            }
-
-            const recipe = this.set(id, methods, opts, tags);
-            const index = this.searchIndex(recipe.priority);
-            this._recipes.splice(index, 0, recipe);
-        }
-
-        set(id, methods, opts, tags) {
-            if (!Array.isArray(methods)) {
-                methods = [methods];
-            }
-
-            const recipe = new Recipe(id, methods, opts, tags);
-            this.recipes.set(id, recipe);
-            return recipe;
-        }
-
-        calculate(input) {
-            let [idx, recipe] = this.match(input);
-
-            if (idx === undefined || recipe === undefined) {
-                return [RecipeBook.default_no_recipe, 0];
-            }
-
-            return [recipe.name, recipe.calculate(input, idx) * recipe.servings];
-        }
-
-        cook(input, servings = 1) {
-            let [idx, recipe] = this.match(input);
-            let result = {
-                id: '',
-                success: false,
-                unlock: false,
-                exist: false,
-                servings: 0,
-                message: RecipeBook.not_found
-            };
-            
-            if(recipe == undefined && idx == undefined) {}
-            else if (!recipe.unlock && typeof input === 'string') {
-                result.id = recipe.name;
-                result.success = false;
-                result.unlock = false;
-                result.message = RecipeBook.not_unlocked;
-            } else if (typeof input === 'string' && idx === undefined) {
-                debugger;
-                result.id = recipe.name;
-                result.servings = 0;
-                result.success = false;
-                result.message = RecipeBook.missing_materials;
-                const required = recipe.multiply(servings);
-                for (const ele of required) {
-                    if (this.hasItems(ele)) {
-                        this.drop(ele);
-                        result.success = true;
-                        result.servings = servings;
-                        result.message = RecipeBook.success;
-                        break;
-                    }
-                }
-            }
-            else if (idx !== undefined, recipe !== undefined){
-                result.id = recipe.id;
-                result.success = recipe.cook();
-                input.length = 0;
-                if (result.success) {
-                    result.servings = recipe.calculate(input, idx);
-                    if(!recipe.unlock){
-                        result.message = RecipeBook.unlocked_success;
-                    } else{
-                        result.message = RecipeBook.success;
-                    }
-                    recipe.unlock = true;
-                } else {
-                    result.servings = 0;
-                    result.message = RecipeBook.failure;
-                }
-            }
-
-            if(recipe) 
-                result.servings *= recipe.servings; 
-
-            return result
-        }
-
-        cookSave(inv, input, servings = 1) {
-            const result = this.cook(input, servings);
-            if (result.success) {
-                RecipeBook.pickup(inv, result.id, result.servings);
-            }
-            return result;
-        }
-
-        match(input) {
-            if(typeof input === 'object' && input !== null) {
-                for (const recipe of this._recipes) {
-                    if (!(recipe instanceof Recipe)) {
-                        throw new Error(`Invalid Recipe: ${recipe}`);
-                    }
-
-                    const idx = recipe.validate(input);
-                    if (idx !== undefined) {
-                        return [idx, recipe];
-                    }
-                }
-            } else if (typeof input === "string") {
-                const recipe = this.recipes.get(input);
-                if (recipe === undefined) {
-                    return [undefined, undefined];
-                }
-                return [undefined, recipe];
-            } else {
-                throw new Error(`Invalid argument: ${input}`);
-            }
-            return [undefined, undefined];
-        }
-
-        filter(filters) {
-            if (typeof filterObjs === 'undefined') {
-                return this.error('The "filter-utils" is required but has not been imported');
-            }
-
-            const callback = (obj, ext) => {
-                if (ext.tags) {
-                    return obj.methods.some(method => {
-                        return Object.keys(method).some(key => {
-                            return Item.get(key)?.hasAnyTags(ext.tags) ?? false;
-                        });
-                    });
-                }
-                return true;
-            };
-
-            return filterObjs(this._recipes, filters, callback);
-        }
-
-
-        get crafting_table() {
-            return this.ct;
-        }
-
-        set crafting_table(value) {
-            this.ct = value;
-            State.variables[this.ct] = State.variables[this.ct] || new Inventory();
-        }
-
-        static sort(recipes) {
-
-            const defaultPriority = 100;
-
-            const recipeArr = Array.from(recipes.values());
-
-            let counts = {};
-
-            recipeArr.forEach(recipe => {
-                const priority =  recipe.priority !== undefined ? recipe.priority : defaultPriority;
-                counts[priority] = (counts[priority] || 0) + 1;
-            });
-
-            const priorities = Object.keys(counts).map(Number).sort((a, b) => a - b);
-
-            let accumulatedCounts = {};
-            let cumulativeSum = 0;
-
-            priorities.forEach(priority => {
-                accumulatedCounts[priority] = cumulativeSum;
-                cumulativeSum += counts[priority];
-            });
-
-            let arr = Array(recipeArr.length);
-
-            for(let i = recipeArr.length - 1; i >= 0; i--) {
-                const recipe = recipeArr[i];
-                const priority =  recipe.priority !== undefined ? recipe.priority : defaultPriority;
-                let position = accumulatedCounts[priority];
-                arr[position] = recipe;
-                accumulatedCounts[priority]++;
-            }
-
-            return arr;
-        }
-
-     
-        static pickup(inv, ...items) {
-            if (!(inv instanceof Inventory)) {
-                throw new Error('Invalid inventory');
-            }
-            if(typeof inv.pickup === 'undefined') {
-                let result;
-                for (let i = 0; i < items.length - 1; i += 2) {
-                    const id = items[i];
-                    const count = items[i + 1];
-
-                    if (!id || !count) {
-                        return result;
-                    }
-                    result = inv.store(id, count);
-
-                    if (!result.success) {
-                        return result;
-                    }
-                }
-            } else {
-                return inv.pickup(...items);
-            }
-        }
-    }
-
-    const addAccessors = (cls, properties) => {
-        properties.forEach(property => {
-            Object.defineProperty(cls.prototype, property, {
-                get() {
-                    return cls[property];
-                },
-                set(value) {
-                    cls[property] = value;
-                }
-            }) 
-        });
-    }
-
-    addAccessors(RecipeBook, [
-        'success', 
-        'failure', 
-        'not_found', 
-        'not_unlocked', 
-        'missing_materials', 
-        'unlocked_success',
-        'default_no_recipe'
-    ]);
-
-    setup._RecipeBook = RecipeBook;
-    window._RecipeBook = window._RecipeBook || RecipeBook;
-    
-    setup.RecipeBook = setup.RecipeBook || new RecipeBook(RecipeBook.crafting_table);
-    window.RecipeBook = window.RecipeBook || setup.RecipeBook;
-})();
-/* twine-user-script #8: "macro.js" */
-(()=>{
-    Macro.add('cook', {
-        tags: null,
-        handler () {
-            if (this.args.length < 1) {
-                return this.error('Not enough arguments provided. At least two arguments are required');
-            }
-            
-            const items = this.args[0];
-            
-            if (!(typeof items === 'object' || typeof items === 'string') || items === null) {
-                return this.error('Expected an object or a string, but received: ' + typeof items);
-            }
-            
-            let result;
-
-            if(this.args.length >= 2) {
-                const inv = this.args[1];
-                if (!inv || !(inv instanceof Inventory)) {
-                    return this.error('Expected an instance of Inventory, but received: ' + typeof inv);
-                }
-                result = RecipeBook.cookSave(inv, items, parseInt(this.args[2]) || 1);
-            } else {
-                result = RecipeBook.cook(items);
-            }
-            WikiVars({result: result}, this);
-        }
-    });
-
-    Macro.add('filter_recipe', {
-        tags: null,
-        handler() {
-            if (this.args.length < 1) {
-                return this.error('Not enough arguments provided. At least two arguments are required.');
-            }
-
-            const filters = this.args[0];
-
-            if (filters && typeof filters !== 'object') {
-                return this.error("Invalid input: 'filters' should be an object");
-            }
-
-            const result = RecipeBook.filter(filters);
-            WikiVars({result}, this);
-        }
-    })
-
-    Macro.add('recipes_with_tag', {
-        handler() {
-            if (this.args.length < 1) {
-                return this.error('Not enough arguments provided. At least one tag is required');
-            }
-            const result = RecipeBook.filter(this.args);
-            WikiVars({result}, this);
-        }
-    });
-
-    Macro.add('calculate', {
-        tags: null,
-        handler() {
-            if (this.args.length < 1) {
-                return this.error('Not enough arguments provided. At least one tag is required');
-            }
-
-            const obj = this.args[0];
-            if (typeof obj !== 'object') {
-                return this.error('Invalid argument: expected an object as the first argument');
-            }
-
-            const [name, servings] = RecipeBook.calculate(obj);
-            WikiVars({servings, name}, this);
-        }
-    })
-})();
-/* twine-user-script #9: "recipe.js" */
+/* twine-user-script #7: "001-recipe.js" */
 (() => {
     'use strict';
 
@@ -3180,7 +2772,437 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
     setup.Recipe = Recipe;
     window.Recipe = window.Recipe || Recipe;
-})();</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;set Popup.darkMode = false&gt;&gt;
+})();
+/* twine-user-script #8: "002-book.js" */
+(() => {
+    'use strict';
+
+    const convertToArray = (input) => {
+        const array = [];
+
+        for (const [key,value] of Object.entries(input)) {
+            array.push(key, value);
+        }
+
+        return array;
+    }
+
+    class RecipeBook {
+
+        static success = '制作成功';
+        static failure = '制作失败';
+        static not_found = '配方不存在';
+        static not_unlocked = '配方未解锁';
+        static missing_materials = '缺少材料';
+        static unlocked_success = '配方成功解锁';
+        static default_no_recipe = '空配方';
+        static crafting_table = 'crafting_table';
+
+        constructor(ct, recipes = new Map(), invs = []) {
+            if (!(recipes instanceof Map)) {
+                throw new Error('Expected "recipes" to be an instance of Map');
+            }
+
+            if (!Array.isArray(invs)) {
+                throw new Error('Expected "invs" to be an array');
+            }
+            this.invs = invs;
+            this.ct = ct;
+
+            State.variables[this.ct] = State.variables[this.ct] || new Inventory();
+
+            this.recipes = recipes;
+            this._recipes = RecipeBook.sort(recipes);
+        }
+
+        names() {
+            return Array.from(this.recipes.keys());
+        }
+
+        has(id) {
+            return this.recipes.has(id);
+        }
+
+        hasItems(input) {
+            const obj = State.variables[this.ct];
+            for (const [key, required] of Object.entries(input)) {
+                const actualCount = obj.count(key);
+                if (actualCount < required) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        drop(input) {
+            const obj = State.variables[this.ct];
+            const arr = convertToArray(input)
+            if (typeof obj.pickup === 'undefined'){
+                obj.delete(...arr);
+            } else {
+                obj.drop(...arr);
+            }
+        }
+
+        update() {
+            this._recipes = RecipeBook.sort(this.recipes);
+        }
+
+        hasAllTags() {
+            const tags = [].slice.call(arguments).flat(Infinity);
+            const result = [];
+
+            for (const recipe of this._recipes) {
+               if(recipe.hasAllTags(tags)) {
+                   result.push(recipe);
+               }
+            }
+            return result;
+        }
+
+
+        searchIndex(priority) {
+            let low = 0;
+            let high = this._recipes.length - 1;
+
+            while (low <= high) {
+                const mid = Math.floor((low + high) / 2);
+                if (this._recipes[mid].priority === priority) {
+                    return mid;
+                } else if(this._recipes[mid].priority < priority) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
+                }
+            }
+
+            return low;
+        }
+
+        insert(id, methods, opts, tags) {
+            if (!Array.isArray(methods)) {
+                methods = [methods];
+            }
+
+            const recipe = this.set(id, methods, opts, tags);
+            const index = this.searchIndex(recipe.priority);
+            this._recipes.splice(index, 0, recipe);
+        }
+
+        set(id, methods, opts, tags) {
+            if (!Array.isArray(methods)) {
+                methods = [methods];
+            }
+
+            const recipe = new Recipe(id, methods, opts, tags);
+            this.recipes.set(id, recipe);
+            return recipe;
+        }
+
+        get(id) {
+            return this.recipes.get(id);
+        }
+
+        calculate(input) {
+            let [idx, recipe] = this.match(input);
+
+            if (idx === undefined || recipe === undefined) {
+                return [RecipeBook.default_no_recipe, 0];
+            }
+
+            return [recipe.name, recipe.calculate(input, idx) * recipe.servings];
+        }
+
+        cook(input, servings = 1) {
+            let [idx, recipe] = this.match(input);
+            let result = {
+                id: '',
+                success: false,
+                unlock: false,
+                exist: false,
+                servings: 0,
+                message: RecipeBook.not_found
+            };
+            
+            if(recipe == undefined && idx == undefined) {
+                if (typeof input === 'object') {
+                    Object.keys(input).forEach(key => delete input[key]);
+                }
+            }
+            else if (!recipe.unlock && typeof input === 'string') {
+                result.id = recipe.name;
+                result.success = false;
+                result.unlock = false;
+                result.message = RecipeBook.not_unlocked;
+            } else if (typeof input === 'string' && idx === undefined) {
+                result.id = recipe.name;
+                result.servings = 0;
+                result.success = false;
+                result.message = RecipeBook.missing_materials;
+                const required = recipe.multiply(servings);
+                for (const ele of required) {
+                    if (this.hasItems(ele)) {
+                        this.drop(ele);
+                        result.success = true;
+                        result.servings = servings;
+                        result.message = RecipeBook.success;
+                        break;
+                    }
+                }
+            }
+            else if (idx !== undefined, recipe !== undefined){
+                result.id = recipe.id;
+                result.success = recipe.cook();
+                input.length = 0;
+                if (result.success) {
+                    result.servings = recipe.calculate(input, idx);
+                    if(!recipe.unlock){
+                        result.message = RecipeBook.unlocked_success;
+                    } else{
+                        result.message = RecipeBook.success;
+                    }
+                    recipe.unlock = true;
+                } else {
+                    result.servings = 0;
+                    result.message = RecipeBook.failure;
+                }
+                Object.keys(input).forEach(key => delete input[key]);
+            }
+
+            if(recipe) 
+                result.servings *= recipe.servings; 
+
+            return result
+        }
+
+        cookSave(inv, input, servings = 1) {
+            const result = this.cook(input, servings);
+            if (result.success) {
+                RecipeBook.pickup(inv, result.id, result.servings);
+            }
+            return result;
+        }
+
+        match(input) {
+            if(typeof input === 'object' && input !== null) {
+                for (const recipe of this._recipes) {
+                    if (!(recipe instanceof Recipe)) {
+                        throw new Error(`Invalid Recipe: ${recipe}`);
+                    }
+
+                    const idx = recipe.validate(input);
+                    if (idx !== undefined) {
+                        return [idx, recipe];
+                    }
+                }
+            } else if (typeof input === "string") {
+                const recipe = this.recipes.get(input);
+                if (recipe === undefined) {
+                    return [undefined, undefined];
+                }
+                return [undefined, recipe];
+            } else {
+                throw new Error(`Invalid argument: ${input}`);
+            }
+            return [undefined, undefined];
+        }
+
+        filter(filters) {
+            if (typeof filterObjs === 'undefined') {
+                throw new Error('The "filter-utils" is required but has not been imported');
+            }
+
+            const callback = (obj, ext) => {
+                if (ext.tags) {
+                    return obj.methods.some(method => {
+                        return Object.keys(method).some(key => {
+                            return Item.get(key)?.hasAnyTags(ext.tags) ?? false;
+                        });
+                    });
+                }
+                return true;
+            };
+
+            return filterObjs(this._recipes, filters, callback);
+        }
+
+
+        get crafting_table() {
+            return this.ct;
+        }
+
+        set crafting_table(value) {
+            this.ct = value;
+            State.variables[this.ct] = State.variables[this.ct] || new Inventory();
+        }
+
+        static sort(recipes) {
+
+            const defaultPriority = 100;
+
+            const recipeArr = Array.from(recipes.values());
+
+            let counts = {};
+
+            recipeArr.forEach(recipe => {
+                const priority =  recipe.priority !== undefined ? recipe.priority : defaultPriority;
+                counts[priority] = (counts[priority] || 0) + 1;
+            });
+
+            const priorities = Object.keys(counts).map(Number).sort((a, b) => a - b);
+
+            let accumulatedCounts = {};
+            let cumulativeSum = 0;
+
+            priorities.forEach(priority => {
+                accumulatedCounts[priority] = cumulativeSum;
+                cumulativeSum += counts[priority];
+            });
+
+            let arr = Array(recipeArr.length);
+
+            for(let i = recipeArr.length - 1; i >= 0; i--) {
+                const recipe = recipeArr[i];
+                const priority =  recipe.priority !== undefined ? recipe.priority : defaultPriority;
+                let position = accumulatedCounts[priority];
+                arr[position] = recipe;
+                accumulatedCounts[priority]++;
+            }
+
+            return arr;
+        }
+
+     
+        static pickup(inv, ...items) {
+            if (!(inv instanceof Inventory)) {
+                throw new Error('Invalid inventory');
+            }
+            if(typeof inv.pickup === 'undefined') {
+                let result;
+                for (let i = 0; i < items.length - 1; i += 2) {
+                    const id = items[i];
+                    const count = items[i + 1];
+
+                    if (!id || !count) {
+                        return result;
+                    }
+                    result = inv.store(id, count);
+
+                    if (!result.success) {
+                        return result;
+                    }
+                }
+            } else {
+                return inv.pickup(...items);
+            }
+        }
+    }
+
+    const addAccessors = (cls, properties) => {
+        properties.forEach(property => {
+            Object.defineProperty(cls.prototype, property, {
+                get() {
+                    return cls[property];
+                },
+                set(value) {
+                    cls[property] = value;
+                }
+            }) 
+        });
+    }
+
+    addAccessors(RecipeBook, [
+        'success', 
+        'failure', 
+        'not_found', 
+        'not_unlocked', 
+        'missing_materials', 
+        'unlocked_success',
+        'default_no_recipe'
+    ]);
+
+    setup._RecipeBook = RecipeBook;
+    window._RecipeBook = window._RecipeBook || RecipeBook;
+    
+    setup.RecipeBook = setup.RecipeBook || new RecipeBook(RecipeBook.crafting_table);
+    window.RecipeBook = window.RecipeBook || setup.RecipeBook;
+})();
+/* twine-user-script #9: "003-macro.js" */
+(()=>{
+    Macro.add('cook', {
+        tags: null,
+        handler () {
+            if (this.args.length < 1) {
+                return this.error('Not enough arguments provided. At least two arguments are required');
+            }
+            
+            const items = this.args[0];
+            
+            if (!(typeof items === 'object' || typeof items === 'string') || items === null) {
+                return this.error('Expected an object or a string, but received: ' + typeof items);
+            }
+            
+            let result;
+
+            if(this.args.length >= 2) {
+                const inv = this.args[1];
+                if (!inv || !(inv instanceof Inventory)) {
+                    return this.error('Expected an instance of Inventory, but received: ' + typeof inv);
+                }
+                result = RecipeBook.cookSave(inv, items, parseInt(this.args[2]) || 1);
+            } else {
+                result = RecipeBook.cook(items);
+            }
+            WikiVars({result: result}, this);
+        }
+    });
+
+    Macro.add('filter_recipe', {
+        tags: null,
+        handler() {
+            if (this.args.length < 1) {
+                return this.error('Not enough arguments provided. At least two arguments are required.');
+            }
+
+            const filters = this.args[0];
+
+            if (filters && typeof filters !== 'object') {
+                return this.error("Invalid input: 'filters' should be an object");
+            }
+
+            const result = RecipeBook.filter(filters);
+            WikiVars({result}, this);
+        }
+    });
+
+    Macro.add('recipes_with_tag', {
+        handler() {
+            if (this.args.length < 1) {
+                return this.error('Not enough arguments provided. At least one tag is required');
+            }
+            const result = RecipeBook.filter(this.args);
+            WikiVars({result}, this);
+        }
+    });
+
+    Macro.add('calculate', {
+        tags: null,
+        handler() {
+            if (this.args.length < 1) {
+                return this.error('Not enough arguments provided. At least one tag is required');
+            }
+
+            const obj = this.args[0];
+            if (typeof obj !== 'object') {
+                return this.error('Invalid argument: expected an object as the first argument');
+            }
+
+            const [name, servings] = RecipeBook.calculate(obj);
+            WikiVars({servings, name}, this);
+        }
+    });
+})();
+</script><tw-passagedata pid="1" name="StoryInit" tags="" position="100,100" size="100,100">&lt;&lt;set Popup.darkMode = false&gt;&gt;
 &lt;&lt;set $hp = 100&gt;&gt;
 &lt;&lt;newinv $inv1 20 64&gt;&gt;
 &lt;&lt;newinv $inv2 10 30&gt;&gt;
