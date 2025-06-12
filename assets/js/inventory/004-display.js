@@ -543,7 +543,7 @@
         $container.find('.inv-slot').each(function() {
             const $slot = $(this);
             
-            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            if ('ontouchstart' in window) {
                 let touchStartTime = 0;
                 let touchStartX = 0;
                 let touchStartY = 0;

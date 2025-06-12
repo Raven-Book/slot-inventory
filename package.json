@@ -1,6 +1,6 @@
 {
 	"versions": {
-		"inventory": "0.1.13",
+		"inventory": "0.1.14",
 		"recipes": "0.2.6"
 	},
 	"scripts": {
