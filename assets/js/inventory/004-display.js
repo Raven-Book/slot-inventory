@@ -306,15 +306,7 @@
             const slot = inv.slots[idx];
             if (!slot) return;
 
-            const item = Item.get(slot.id);
-            if (!item) return;
-
-            const handler = item.handler;
-            if (typeof handler === 'function') {
-                handler(inv, idx);
-            } else if (typeof handler === 'string' && handler.trim() !== '') {
-                $.wiki(handler.trim());
-            }
+            inv.use(idx);
             inv.render($container[0]);
         } catch (error) {
             console.error('Error handling item use:', error);

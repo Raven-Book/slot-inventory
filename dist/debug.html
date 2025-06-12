@@ -104,7 +104,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<!-- UUID://7290E98B-F8EB-4C77-AD28-9E538F0048AF// --><tw-storydata name="Inventory 示例" startnode="4" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="7290E98B-F8EB-4C77-AD28-9E538F0048AF" zoom="1" format="SugarCube" format-version="2.37.3" options="debug" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "index.css" */
+	<!-- UUID://7290E98B-F8EB-4C77-AD28-9E538F0048AF// --><tw-storydata name="Inventory 示例" startnode="4" creator="Tweego" creator-version="2.1.1+81d1d71" ifid="7290E98B-F8EB-4C77-AD28-9E538F0048AF" zoom="1" format="SugarCube" format-version="2.37.3" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* twine-user-stylesheet #1: "index.css" */
 .item-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1505,7 +1505,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
                 if (slot.durability <= 0) {
                     return this.drop(idx, 1);
                 }
-            } else if (item.cat === ItemCategory.CONSUMABLE) {
+            } else if (ItemCategory.validate("consumable")) {
                 return this.drop(idx, 1);
             }
             triggerEvent(':item_post_use', document, {detail});
@@ -1962,15 +1962,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
             const slot = inv.slots[idx];
             if (!slot) return;
 
-            const item = Item.get(slot.id);
-            if (!item) return;
-
-            const handler = item.handler;
-            if (typeof handler === 'function') {
-                handler(inv, idx);
-            } else if (typeof handler === 'string' && handler.trim() !== '') {
-                $.wiki(handler.trim());
-            }
+            inv.use(idx);
             inv.render($container[0]);
         } catch (error) {
             console.error('Error handling item use:', error);
@@ -2199,7 +2191,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
         $container.find('.inv-slot').each(function() {
             const $slot = $(this);
             
-            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            if ('ontouchstart' in window) {
                 let touchStartTime = 0;
                 let touchStartX = 0;
                 let touchStartY = 0;
@@ -3374,7 +3366,10 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
         &lt;&lt;/for&gt;&gt;
         &lt;/div&gt;
     &lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Equipment" tags="init" position="100,225" size="100,100">&lt;&lt;weapon &#39;木剑&#39;&gt;&gt;
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Equipment" tags="init" position="100,225" size="100,100">&lt;&lt;food &quot;test&quot;&gt;&gt;
+&lt;&lt;run console.log(1)&gt;&gt;
+&lt;&lt;/food&gt;&gt;
+&lt;&lt;weapon &#39;木剑&#39;&gt;&gt;
 &lt;&lt;durability 100&gt;&gt;
 &lt;&lt;url imgs/images.png&gt;&gt;
 &lt;&lt;description&gt;&gt;

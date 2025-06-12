@@ -728,7 +728,7 @@
                 if (slot.durability <= 0) {
                     return this.drop(idx, 1);
                 }
-            } else if (item.cat === ItemCategory.CONSUMABLE) {
+            } else if (ItemCategory.validate("consumable")) {
                 return this.drop(idx, 1);
             }
             triggerEvent(':item_post_use', document, {detail});

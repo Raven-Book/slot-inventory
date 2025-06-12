@@ -1,4 +1,7 @@
 :: Equipment [init]
+<<food "糖果">>
+<<run console.log("你吃了个糖")>>
+<</food>>
 <<weapon '木剑'>>
 <<durability 100>>
 <<url imgs/images.png>>
