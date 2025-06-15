@@ -101,8 +101,20 @@
             }
 
             return Object.entries(this.methods[index]).reduce((min, [ingredient, require]) => {
-                const available = input[ingredient];
-                return Math.min(min, Math.floor(available / require));
+                if (ingredient.startsWith('tag:')) {
+                    const tag = ingredient.substring(4);
+                    let totalCount = 0;
+                    for (const [itemId, count] of Object.entries(input)) {
+                        const item = Item.get(itemId);
+                        if (item && item.hasTag(tag)) {
+                            totalCount += count;
+                        }
+                    }
+                    return Math.min(min, Math.floor(totalCount / require));
+                } else {
+                    const available = input[ingredient];
+                    return Math.min(min, Math.floor(available / require));
+                }
             }, Infinity);
         }
 
@@ -137,11 +149,24 @@
                 }
             }
             
-            
             for (const [index, method] of this.methods.entries()) {
                 let match = true;
                 for (const ingredient in method) {
-                    if (!ingredients[ingredient] || ingredients[ingredient] < method[ingredient]) {
+                    if (ingredient.startsWith('tag:')) {
+                        const tag = ingredient.substring(4);
+                        let found = false;
+                        for (const [itemId, count] of Object.entries(ingredients)) {
+                            const item = Item.get(itemId);
+                            if (item && item.hasTag(tag) && count >= method[ingredient]) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            match = false;
+                            break;
+                        }
+                    } else if (!ingredients[ingredient] || ingredients[ingredient] < method[ingredient]) {
                         match = false;
                         break;
                     }
@@ -176,9 +201,22 @@
             for (const [index, method] of this.methods.entries()) {
                 let match = true;
                 for (const ingredient in method) {
-                    if (!ingredients[ingredient] || ingredients[ingredient] !== this.ingredients[ingredient]) {
+                    if (ingredient.startsWith('tag:')) {
+                        const tag = ingredient.substring(4);
+                        let totalCount = 0;
+                        for (const [itemId, count] of Object.entries(ingredients)) {
+                            const item = Item.get(itemId);
+                            if (item && item.hasTag(tag)) {
+                                totalCount += count;
+                            }
+                        }
+                        if (totalCount !== method[ingredient]) {
+                            match = false;
+                            break;
+                        }
+                    } else if (!ingredients[ingredient] || ingredients[ingredient] !== method[ingredient]) {
                         match = false;
-                        break
+                        break;
                     }
                 }
 

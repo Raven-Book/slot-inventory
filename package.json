@@ -1,7 +1,7 @@
 {
 	"versions": {
 		"inventory": "0.1.15",
-		"recipes": "0.2.6"
+		"recipes": "0.3.0"
 	},
 	"scripts": {
 		"assets": "webpack --mode production",

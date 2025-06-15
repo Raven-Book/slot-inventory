@@ -50,9 +50,24 @@
         hasItems(input) {
             const obj = State.variables[this.ct];
             for (const [key, required] of Object.entries(input)) {
-                const actualCount = obj.count(key);
-                if (actualCount < required) {
-                    return false;
+                if (key.startsWith('tag:')) {
+                    const tag = key.substring(4);
+                    let found = false;
+                    for (const [itemId, count] of Object.entries(obj.items)) {
+                        const item = Item.get(itemId);
+                        if (item && item.hasTag(tag) && count >= required) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        return false;
+                    }
+                } else {
+                    const actualCount = obj.count(key);
+                    if (actualCount < required) {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -174,7 +189,7 @@
                     }
                 }
             }
-            else if (idx !== undefined, recipe !== undefined){
+            else if (idx !== undefined && recipe !== undefined){
                 result.id = recipe.id;
                 result.success = recipe.cook();
                 input.length = 0;
