@@ -53,7 +53,7 @@
                 if (key.startsWith('tag:')) {
                     const tag = key.substring(4);
                     let found = false;
-                    for (const [itemId, count] of Object.entries(obj.items)) {
+                    for (const [itemId, count] of Object.entries(obj.data)) {
                         const item = Item.get(itemId);
                         if (item && item.hasTag(tag) && count >= required) {
                             found = true;
@@ -75,11 +75,33 @@
 
         drop(input) {
             const obj = State.variables[this.ct];
-            const arr = convertToArray(input)
-            if (typeof obj.pickup === 'undefined'){
-                obj.delete(...arr);
-            } else {
-                obj.drop(...arr);
+            
+            for (const [key, required] of Object.entries(input)) {
+                if (key.startsWith('tag:')) {
+                    const tag = key.substring(4);
+                    let remaining = required;
+                    
+                    for (const [itemId, count] of Object.entries(obj.data)) {
+                        if (remaining <= 0) break;
+                        
+                        const item = Item.get(itemId);
+                        if (item && item.hasTag(tag)) {
+                            const toRemove = Math.min(count, remaining);
+                            if (typeof obj.pickup === 'undefined') {
+                                obj.delete(itemId, toRemove);
+                            } else {
+                                obj.drop(itemId, toRemove);
+                            }
+                            remaining -= toRemove;
+                        }
+                    }
+                } else {
+                    if (typeof obj.pickup === 'undefined') {
+                        obj.delete(key, required);
+                    } else {
+                        obj.drop(key, required);
+                    }
+                }
             }
         }
 
@@ -197,10 +219,10 @@
                     result.servings = recipe.calculate(input, idx);
                     if(!recipe.unlock){
                         result.message = RecipeBook.unlocked_success;
+                        recipe.unlock = true;
                     } else{
                         result.message = RecipeBook.success;
                     }
-                    recipe.unlock = true;
                 } else {
                     result.servings = 0;
                     result.message = RecipeBook.failure;

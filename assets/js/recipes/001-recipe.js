@@ -41,7 +41,7 @@
             
             if(!save_data().has(id)) {
                 const data = clone(defaultSaveData);
-                data.unlock = opts._unlock;
+                data.unlock = opts._unlock ?? false;
                 save_data().set(id, data);
             }
 
